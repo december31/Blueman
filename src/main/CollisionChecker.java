@@ -2,6 +2,7 @@ package main;
 
 import entity.Entity;
 import entity.Player;
+import object.SuperObject;
 
 public class CollisionChecker {
 
@@ -66,47 +67,45 @@ public class CollisionChecker {
 		}
 	}
 
-	public int checkEntity(Entity entity) {
+	public int checkEntity(SuperObject[] objects, Entity entity) {
 		int index = -1;
 
-
-
-		for(int i = 0; i < gamePanel.objects.length; i++) {
-			if(gamePanel.objects[i] != null) {
+		for(int i = 0; i < objects.length; i++) {
+			if(objects[i] != null) {
 				// Get entity's solid area position
 				entity.solidArea.x = entity.worldX + entity.solidArea.x;
 				entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
 				// Get object's solid area position
-				gamePanel.objects[i].solidArea.x = gamePanel.objects[i].worldX + gamePanel.objects[i].solidArea.x;
-				gamePanel.objects[i].solidArea.y = gamePanel.objects[i].worldY + gamePanel.objects[i].solidArea.y;
+				objects[i].solidArea.x = objects[i].worldX + objects[i].solidArea.x;
+				objects[i].solidArea.y = objects[i].worldY + objects[i].solidArea.y;
 
 				switch (entity.direction) {
 					case "up":
 						entity.solidArea.x -= entity.speed;
-						if(gamePanel.objects[i].solidArea.intersects(entity.solidArea)) {
-							if(gamePanel.objects[i].collision == true) entity.collisionOn = true;
+						if(objects[i].solidArea.intersects(entity.solidArea)) {
+							if(objects[i].collision == true) entity.collisionOn = true;
 							if(entity instanceof Player) index = i;
 						}
 						break;
 					case "down":
 						entity.solidArea.y += entity.speed;
-						if(gamePanel.objects[i].solidArea.intersects(entity.solidArea)) {
-							if(gamePanel.objects[i].collision == true) entity.collisionOn = true;
+						if(objects[i].solidArea.intersects(entity.solidArea)) {
+							if(objects[i].collision == true) entity.collisionOn = true;
 							if(entity instanceof Player) index = i;
 						}
 						break;
 					case "left":
 						entity.solidArea.x -= entity.speed;
-						if(gamePanel.objects[i].solidArea.intersects(entity.solidArea)) {
-							if(gamePanel.objects[i].collision == true) entity.collisionOn = true;
+						if(objects[i].solidArea.intersects(entity.solidArea)) {
+							if(objects[i].collision == true) entity.collisionOn = true;
 							if(entity instanceof Player) index = i;
 						}
 						break;
 					case "right":	
 						entity.solidArea.x += entity.speed;
-						if(gamePanel.objects[i].solidArea.intersects(entity.solidArea)) {
-							if(gamePanel.objects[i].collision == true) entity.collisionOn = true;
+						if(objects[i].solidArea.intersects(entity.solidArea)) {
+							if(objects[i].collision == true) entity.collisionOn = true;
 							if(entity instanceof Player) index = i;
 						}
 						break;
@@ -116,8 +115,8 @@ public class CollisionChecker {
 				entity.solidArea.x = entity.solidAreaDefaultX;
 				entity.solidArea.y = entity.solidAreaDefaultY;
 
-				gamePanel.objects[i].solidArea.x = gamePanel.objects[i].solidAreaDefaultX;
-				gamePanel.objects[i].solidArea.y = gamePanel.objects[i].solidAreaDefaultY;
+				objects[i].solidArea.x = objects[i].solidAreaDefaultX;
+				objects[i].solidArea.y = objects[i].solidAreaDefaultY;
 			}
 		}
 		return index;

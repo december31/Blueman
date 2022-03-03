@@ -41,23 +41,24 @@ public class TileManager {
 
 	public void getTileImage() {
 
-		setup(0, "grass", false);
-		setup(1, "wall", true);
-		setup(2, "water", true);
-		setup(3, "earth", false);
-		setup(4, "tree", true);
-		setup(5, "sand", false);
+		setup(0, "grass01", false, false);
+		setup(1, "wall", true, false);
+		setup(2, "water01", true, false);
+		setup(3, "earth", false, false);
+		setup(4, "tree", true, true);
+		setup(5, "road00", false, false);
 
 	}
 
-	public void setup(int index, String imageName, boolean collision) {
+	public void setup(int index, String imageName, boolean collision, boolean breakable) {
 		UtilityTool uTool = new UtilityTool();
 
 		try {
 			tiles[index] = new Tile();
-			tiles[index].image = ImageIO.read(new File("../res/Tiles/Old version/"+ imageName +".png"));
+			tiles[index].image = ImageIO.read(new File("../res/Tiles/New version/"+ imageName +".png"));
 			tiles[index].image = uTool.scaleImage(tiles[index].image, gamePanel.tileSize, gamePanel.tileSize);
 			tiles[index].collision = collision;
+			tiles[index].breakable = breakable;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

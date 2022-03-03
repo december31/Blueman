@@ -1,5 +1,6 @@
 package main;
 
+import object.Bomb;
 import object.OBJ_Boots;
 import object.OBJ_Chest;
 import object.OBJ_Door;

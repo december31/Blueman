@@ -23,12 +23,13 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int maxWorldRow = 50;
 	public final int maxWorldWidth = tileSize * maxWorldCol;
 	public final int maxWorldHeight = tileSize * maxWorldRow;
+
 	
 	public Thread gameThread;
 	final int FPS = 60;
 
-	KeyHandler keyHandler = new KeyHandler();
-	TileManager tileManager = new TileManager(this);
+	KeyHandler keyHandler = new KeyHandler(this);
+	public TileManager tileManager = new TileManager(this);
 	public Sound music = new Sound();
 	public Sound soundEffect = new Sound();
 	public AssetSetter assetSetter = new AssetSetter(this);
@@ -36,6 +37,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public Player player = new Player(this, keyHandler);
 	public UI ui = new UI(this);
+
+	public int gameState;
+	public int titleState;
+	public int playState = 1;
+	public int pauseState = 2;
+	public int tutorialState = 3;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -47,7 +54,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void setupGame() {
 		assetSetter.setObject();
-		playMusic();
+		gameState = titleState;
+		// playMusic();
 	}
 	
 	public void startGameThread() {
@@ -76,28 +84,37 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	private void update() {
-		player.update();
+		if(gameState == playState) {
+			player.update();
+		} else if(gameState == pauseState) {
+			// do nothing
+		}
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D)g;
 		super.paintComponent(g2D);
-		// TILES
-		tileManager.draw(g2D);
-
-		// OBJECT
-		for(int i = 0; i < 10; i++) {
-			if(objects[i] != null) {
-				objects[i].draw(g2D, this);
+		if(gameState == titleState || gameState == tutorialState) {
+			ui.draw(g2D);
+		} else {
+			// TILES
+			tileManager.draw(g2D);
+	
+			// OBJECT
+			for(int i = 0; i < 10; i++) {
+				if(objects[i] != null) {
+					objects[i].draw(g2D, this);
+				}
 			}
+			
+			// PLAYER
+			player.draw(g2D);
+	
+			// UI
+			ui.draw(g2D);
 		}
 		
-		// PLAYER
-		player.draw(g2D);
-
-		// UI
-		ui.draw(g2D);
 		
 		g2D.dispose();
 	}
@@ -116,5 +133,4 @@ public class GamePanel extends JPanel implements Runnable{
 		soundEffect.setFile(type);
 		soundEffect.play();
 	}
-
 }

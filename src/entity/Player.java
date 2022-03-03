@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.Bomb;
 
 public class Player extends Entity{
 
@@ -19,6 +20,11 @@ public class Player extends Entity{
 	public final int screenX;
 	public final int screenY;
 	public int hasKey = 0;
+	public int hasBomb;
+	boolean isPlaceBomb = false;
+
+	Bomb[] bombs;
+	int bombIndex = 0;
 
 	public Player(GamePanel gamePanel, KeyHandler keyHandler) {
 		this.gamePanel = gamePanel;
@@ -36,6 +42,9 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
+		hasBomb = 5;
+		bombs = new Bomb[hasBomb];
+		for(int i = 0; i < bombs.length; i++) bombs[i] = new Bomb(gamePanel);
 		worldX = gamePanel.tileSize * 23;
 		worldY = gamePanel.tileSize * 21;
 		speed = 3;
@@ -43,18 +52,6 @@ public class Player extends Entity{
 	}
 
 	public void loadPlayerImage() {
-		try {
-			up1 = ImageIO.read(new File("../res/Player/Walking sprites/boy_up_1.png"));
-			up2 = ImageIO.read(new File("../res/Player/Walking sprites/boy_up_2.png"));
-			down1 = ImageIO.read(new File("../res/Player/Walking sprites/boy_down_1.png"));
-			down2 = ImageIO.read(new File("../res/Player/Walking sprites/boy_down_2.png"));
-			left1 = ImageIO.read(new File("../res/Player/Walking sprites/boy_left_1.png"));
-			left2 = ImageIO.read(new File("../res/Player/Walking sprites/boy_left_2.png"));
-			right1 = ImageIO.read(new File("../res/Player/Walking sprites/boy_right_1.png"));
-			right2 = ImageIO.read(new File("../res/Player/Walking sprites/boy_right_2.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		up1 = setup("boy_up_1");
 		up2 = setup("boy_up_2");
 		down1 = setup("boy_down_1");
@@ -77,52 +74,60 @@ public class Player extends Entity{
 		return image;
 	}
 
-	public void update() {
-		if(keyHandler.upPressed == true) {
-			direction = "up";
+	public void setupBomb() {
+		if(bombIndex >= bombs.length && bombs[0].isExploded) {
+			bombIndex = 0;
 		}
-		else if(keyHandler.downPressed == true) {
-			direction = "down";
-		}
-		else if(keyHandler.leftPressed == true) {
-			direction = "left";
-		}
-		else if(keyHandler.rightPressed == true) {
-			direction = "right";
-		}
-		else return;
 
+		int bombCol = (this.worldX + (gamePanel.tileSize / 2)) / gamePanel.tileSize;
+		int bombRow = (this.worldY + (gamePanel.tileSize / 2)) / gamePanel.tileSize;
+		bombs[bombIndex].worldX = bombCol * gamePanel.tileSize;
+		bombs[bombIndex].worldY = bombRow * gamePanel.tileSize;
+
+		// if this place already has a bomb
+		for(int i = 0; i < bombs.length; i++) {
+			if(i == bombIndex) continue;
+			if(!bombs[i].isExploded &&
+				bombs[bombIndex].worldX == bombs[i].worldX &&
+				bombs[bombIndex].worldY == bombs[i].worldY
+			) {
+				isPlaceBomb = false;
+				return;
+			}
+		}
+
+		hasBomb--;
+		bombs[bombIndex].timer = 5;
+		bombs[bombIndex].isExploded = false;
+		bombIndex++;
+	}
+	
+	public void update() {
+		if(keyHandler.placeBombPressed == true) {
+			isPlaceBomb = true;
+			keyHandler.placeBombPressed = false;
+		}
+		if(keyHandler.upPressed == true) {direction = "up";}
+		else if(keyHandler.downPressed == true) {direction = "down";}
+		else if(keyHandler.leftPressed == true) {direction = "left";}
+		else if(keyHandler.rightPressed == true) {direction = "right";}
+		else return;
+		
 		// CHECK TILES COLLISION
 		collisionOn = false;
 		gamePanel.collisionChecker.checkTile(this);
-
+		
 		// CHECK OBJECTS COLLISION
-		int index = gamePanel.collisionChecker.checkEntity(this);
+		int index = gamePanel.collisionChecker.checkEntity(gamePanel.objects, this);
+		gamePanel.collisionChecker.checkEntity(bombs, this);
 		pickUpKey(index);
 
 		switch (direction) {
-			case "up":
-				if(collisionOn == false) {
-					worldY -= speed;
-				}
-				break;
-			case "down":
-				if(collisionOn == false) {
-					worldY += speed;
-				}
-				break;
-			case "left":
-				if(collisionOn == false) {
-					worldX -= speed;
-				}
-				break;
-			case "right":
-				if(collisionOn == false) {
-					worldX += speed;
-				}
-				break;
-			default:
-				break;
+			case "up":if(collisionOn == false) {worldY -= speed;}break;
+			case "down":if(collisionOn == false) {worldY += speed;}break;
+			case "left":if(collisionOn == false) {worldX -= speed;}break;
+			case "right":if(collisionOn == false) {worldX += speed;}break;
+			default: break;
 		}
 
 		spritesCounter++;
@@ -159,7 +164,7 @@ public class Player extends Entity{
 					speed += 1;
 					break;
 				case "Chest":
-					gamePanel.music.stop();
+					// gamePanel.music.stop();
 					gamePanel.playSoundEffect("Chest");
 					gamePanel.ui.gameFinished = true;
 					break;
@@ -170,6 +175,7 @@ public class Player extends Entity{
 	}
 
 	public void draw(Graphics2D g2D) {
+		
 		BufferedImage image = null;
 		switch (direction) {
 			case "up":
@@ -190,6 +196,49 @@ public class Player extends Entity{
 				break;
 			default:
 				break;
+		}
+
+		if(isPlaceBomb == true && hasBomb > 0) {
+			setupBomb();
+		} 
+		isPlaceBomb = false;
+
+		// BOMB
+		for(int i = 0; i < bombs.length; i++) {
+			Bomb tmp = bombs[i];
+			if(!tmp.isExploded) {
+				tmp.draw(g2D, gamePanel);
+
+				// if player go away from bomb then set the bomb's collision = true
+				// get player solid area position
+				this.solidArea.x = this.worldX + this.solidArea.x;
+				this.solidArea.y = this.worldY + this.solidArea.y;
+
+				// Get object's solid area position
+				tmp.solidArea.x = tmp.worldX + tmp.solidArea.x;
+				tmp.solidArea.y = tmp.worldY + tmp.solidArea.y;
+
+				if(tmp.collision == false && !tmp.solidArea.intersects(this.solidArea)) {
+					tmp.collision = true;
+				}
+
+				this.solidArea.x = this.solidAreaDefaultX;
+				this.solidArea.y = this.solidAreaDefaultY;
+				tmp.solidArea.x = tmp.solidAreaDefaultX;
+				tmp.solidArea.y = tmp.solidAreaDefaultY;
+
+
+				// bomb clock count down
+				tmp.frameCounter++;
+				if(tmp.frameCounter >= 60) {
+					tmp.timer--;
+					tmp.frameCounter = 0;
+					if(tmp.timer == 0) {
+						tmp.explode();
+						hasBomb++;
+					}
+				}
+			}
 		}
 		g2D.drawImage(image, screenX, screenY, null);
 	}
