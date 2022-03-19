@@ -21,10 +21,10 @@ public class TileManager {
 	public TileManager(GamePanel gamePanel) {
 
 		this.gamePanel = gamePanel;
-		tiles = new Tile[6];
+		tiles = new Tile[60];
 		mapTilesNum = new int[gamePanel.maxWorldRow][gamePanel.maxWorldCol];
 
-		loadMap("../res/Map/world01.txt");
+		loadMap("../res/Map/worldV4.txt");
 		getTileImage();
 	}
 
@@ -40,25 +40,82 @@ public class TileManager {
 	}
 
 	public void getTileImage() {
+		for(int i = 0; i < 10; i++) {
+			setup(i, "grass00", false);
+		}
 
-		setup(0, "grass01", false, false);
-		setup(1, "wall", true, false);
-		setup(2, "water01", true, false);
-		setup(3, "earth", false, false);
-		setup(4, "tree", true, true);
-		setup(5, "road00", false, false);
+		setup(10, "water00", true);
+		setup(11, "water01", true);
+		setup(12, "water02", true);
+		setup(13, "water01R", true);
+		setup(14, "water01L", true);
+		setup(15, "water01U", true);
+		setup(16, "water01C2R", true);
+		setup(17, "water01C2L", true);
+		setup(18, "water01C1R", true);
+		setup(19, "water01C1L", true);
+
+		setup(20, "wall00", true);
+		setup(21, "wall01", true);
+		setup(22, "wall02", true);
+		setup(23, "wall03", true);
+		setup(24, "wall04", true);
+		setup(25, "wall05", true);
+		setup(26, "wall06", true);
+		setup(27, "wall07", true);
+		setup(28, "wall08", true);
+		setup(29, "wall09", true);
+		
+		setup(30, "grass00", false);
+		setup(31, "grass01", false);
+		setup(32, "grass02", false);
+		setup(33, "grass03", false);
+		setup(34, "grass04", false);
+		setup(35, "grass05", false);
+		setup(36, "grass06", false);
+
+		setup(37, "grass00L", false);
+		setup(38, "grass01L", false);
+		setup(39, "grass02L", false);
+		setup(40, "grass04L", false);
+
+		setup(41, "grass00R", false);
+		setup(42, "grass01R", false);
+		setup(43, "grass02R", false);
+		setup(44, "grass04R", false);
+		
+		setup(45, "grass00U", false);
+		setup(46, "grass01U", false);
+		setup(47, "grass02U", false);
+		setup(48, "grass04U", false);
+
+		setup(49, "grass00UL", false);
+		setup(50, "grass01UL", false);
+		setup(51, "grass02UL", false);
+		setup(52, "grass04UL", false);
+		
+		setup(53, "grass00UR", false);
+		setup(54, "grass01UR", false);
+		setup(55, "grass02UR", false);
+		setup(56, "grass04UR", false);
+
+		// setup(0, "grass01", false);
+		// setup(1, "wall", true);
+		// setup(2, "water01", true);
+		// setup(3, "earth", false);
+		// setup(4, "tree", true, true);
+		// setup(5, "road00", false);
 
 	}
 
-	public void setup(int index, String imageName, boolean collision, boolean breakable) {
+	public void setup(int index, String imageName, boolean collision) {
 		UtilityTool uTool = new UtilityTool();
 
 		try {
 			tiles[index] = new Tile();
-			tiles[index].image = ImageIO.read(new File("../res/Tiles/New version/"+ imageName +".png"));
+			tiles[index].image = ImageIO.read(new File("../res/Tiles/My version/"+ imageName +".png"));
 			tiles[index].image = uTool.scaleImage(tiles[index].image, gamePanel.tileSize, gamePanel.tileSize);
 			tiles[index].collision = collision;
-			tiles[index].breakable = breakable;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

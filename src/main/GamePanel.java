@@ -1,9 +1,24 @@
 package main;
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
 
+import javax.swing.JPanel;
+
+import entity.Entity;
 import entity.Player;
-import object.SuperObject;
+import object.OBJ_Bomb;
+import object.OBJ_Boots;
+import object.OBJ_ExtraBomb;
+import object.OBJ_HealingPotion;
+import object.OBJ_Key;
+import object.OBJ_LevelUpBomb;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -19,23 +34,30 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow;
 
 	// map setting
-	public final int maxWorldCol = 50;
-	public final int maxWorldRow = 50;
+	public final int maxWorldCol = 31;
+	public final int maxWorldRow = 83;
 	public final int maxWorldWidth = tileSize * maxWorldCol;
 	public final int maxWorldHeight = tileSize * maxWorldRow;
 
-	
 	public Thread gameThread;
 	final int FPS = 60;
+	public int fps;
 
-	KeyHandler keyHandler = new KeyHandler(this);
+	public KeyHandler keyHandler = new KeyHandler(this);
+	public MouseHandler mouseHandler = new MouseHandler(this);
 	public TileManager tileManager = new TileManager(this);
 	public Sound music = new Sound();
 	public Sound soundEffect = new Sound();
 	public AssetSetter assetSetter = new AssetSetter(this);
-	public SuperObject[] objects = new SuperObject[10];
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
-	public Player player = new Player(this, keyHandler);
+
+	public Player player = new Player(this);
+	public Entity[] objects = new Entity[150];
+	public Entity[] items = new Entity[10];
+	public Entity[] monsters = new Entity[20];
+	public OBJ_Bomb[] bombs = new OBJ_Bomb[20];
+	public List<Entity> entityList = new ArrayList<>();
+
 	public UI ui = new UI(this);
 
 	public int gameState;
@@ -43,21 +65,46 @@ public class GamePanel extends JPanel implements Runnable{
 	public int playState = 1;
 	public int pauseState = 2;
 	public int tutorialState = 3;
+	public int settingState = 4;
+	public int finishState = 5;
+	public int[] previousState = new int[6];
+	public boolean checkKeyHandlerFinishState = false;
+
+	public int level;
+	// last monster killed coordinate
+	int monsterWorldX = 0;
+	int monsterWorldY = 0;
+
+	public boolean continuable;
+	public Random random = new Random();
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);	// improve game's rendering performance
 		this.addKeyListener(keyHandler);
+		this.addMouseListener(mouseHandler.clickListener);
+		this.addMouseMotionListener(mouseHandler.dragListener);
 		this.setFocusable(true);
-	}
-
-	public void setupGame() {
-		assetSetter.setObject();
-		gameState = titleState;
-		// playMusic();
+		playMusic();
 	}
 	
+	public void setupGame() {
+		level = 1;
+		continuable = false;
+		gameState = titleState;
+		objects = new Entity[150];
+		assetSetter.setObject();
+		assetSetter.setMonster();
+	}
+
+	public void newGame() {
+		player.setDefaultValues();;
+		tileManager.loadMap("../res/Map/worldV4.txt");
+		setupGame();
+		gameState = playState;
+	}
+
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -70,15 +117,26 @@ public class GamePanel extends JPanel implements Runnable{
 		double delta = 0;
 		double currentTime;
 
+		double timer = 0;
+		int drawCount = 0;
+
 		while(gameThread != null) {
 			currentTime = System.currentTimeMillis();
 			delta += (currentTime - lastTime) / drawInterval;
+			timer += (currentTime - lastTime);
 			lastTime = currentTime;
 
 			if(delta >= 1) {
 				update();
 				repaint();
+				drawCount++;
 				delta--;
+			}
+
+			if(timer > 1000) {
+				fps = drawCount;
+				drawCount = 0;
+				timer = 0;
 			}
 		}
 	}
@@ -86,31 +144,110 @@ public class GamePanel extends JPanel implements Runnable{
 	private void update() {
 		if(gameState == playState) {
 			player.update();
-		} else if(gameState == pauseState) {
+			
+			// MONSTER
+			int monsterCounter = monsters.length;
+
+			for(int i = 0; i < monsters.length; i++) {
+				if(monsters[i] != null && monsters[i].dying == false) {
+					monsters[i].update();
+					if(monsters[i].alive == false) {
+						monsterWorldX = monsters[i].worldX;
+						monsterWorldY = monsters[i].worldY;
+						monsters[i] = null;
+					}
+				} else if(monsters[i] == null){
+					monsterCounter--;
+				}
+			}
+			
+			// win if all monster has been killed (demo)
+			if(monsterCounter == 0) {
+				if(level < 5) {
+					level++;
+					assetSetter.setMonster();
+					music.stop();
+					playSoundEffect("Winning2");
+					objects[assetSetter.objectIndex] = new OBJ_Key(this);
+					objects[assetSetter.objectIndex].worldX = monsterWorldX;
+					objects[assetSetter.objectIndex].worldY = monsterWorldY;
+				}
+			}
+
+			// if(soundEffect.isRunning() == false && music.isRunning() == false) {
+			// 	music.play();
+			// }
+
+			// BOMBS
+			for(int i = 0; i < bombs.length; i++) {
+				if(!bombs[i].isExploded) {
+					bombs[i].update();
+				}
+			}
+
+		} else if (gameState == pauseState) {
 			// do nothing
 		}
+		else if (gameState == finishState) {
+			if(keyHandler.upPressed == false) {
+				checkKeyHandlerFinishState = true;
+			}
+		}
 	}
-
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D)g;
-		super.paintComponent(g2D);
-		if(gameState == titleState || gameState == tutorialState) {
+		if(gameState == titleState || gameState == tutorialState || gameState == settingState) {
 			ui.draw(g2D);
 		} else {
 			// TILES
 			tileManager.draw(g2D);
-	
-			// OBJECT
-			for(int i = 0; i < 10; i++) {
-				if(objects[i] != null) {
-					objects[i].draw(g2D, this);
+			
+			for(int i = 0; i < bombs.length; i++) {
+				if(!bombs[i].isExploded) {
+					bombs[i].draw(g2D);
 				}
 			}
 			
-			// PLAYER
-			player.draw(g2D);
-	
+			// add entities to array list
+			entityList.add(player);
+			for(int i = 0; i < objects.length; i++) {
+				if(objects[i] != null) {
+					if(objects[i].alive == true) {
+						entityList.add(objects[i]);
+					} else {
+						int worldX = objects[i].worldX;
+						int worldY = objects[i].worldY;
+						objects[i] = randomItem();
+						if(objects[i] != null) {
+							objects[i].worldX = worldX;
+							objects[i].worldY = worldY;
+							objects[i].alive = true;
+						}
+					}
+				}
+			}
+			for(int i = 0; i < monsters.length; i++) {
+				if(monsters[i] != null) {
+					entityList.add(monsters[i]);
+				}
+			}
+
+			// sort ascending by world y coordinate
+			Collections.sort(entityList, new Comparator<Entity>() {
+				@Override
+				public int compare(Entity e1, Entity e2) {
+					return Integer.compare(e1.worldY, e2.worldY);
+				}
+			});
+			
+			// draw one by one
+			entityList.forEach(entity -> {
+				entity.draw(g2D);
+			});
+			entityList.clear();
+
 			// UI
 			ui.draw(g2D);
 		}
@@ -120,7 +257,8 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void playMusic() {
-		music.setFile("background");
+		music.setFile("Background");
+		music.setVolume(ui.musicVolume/2 - 44);
 		music.play();
 		music.loop();
 	}
@@ -131,6 +269,17 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void playSoundEffect(String type) {
 		soundEffect.setFile(type);
+		soundEffect.setVolume(ui.effectVolume/2 - 44);
 		soundEffect.play();
 	}
+
+	public Entity randomItem() {
+		int rand = random.nextInt(0,100);
+		if(rand < 5) return new OBJ_HealingPotion(this);
+		else if(rand < 25) return new OBJ_ExtraBomb(this);
+		else if(rand < 50) return new OBJ_LevelUpBomb(this);
+		else if(rand < 60) return new OBJ_Boots(this);
+		return null;
+	}
+
 }

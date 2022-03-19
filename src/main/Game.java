@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class Game extends JFrame{
 	public Game() {
-		this.setTitle("Blue man go around");
+		this.setTitle("Bomberman 2");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		GamePanel gamePanel = new GamePanel();
@@ -15,7 +15,6 @@ public class Game extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		gamePanel.setupGame();
 		gamePanel.startGameThread();
 	}
 }

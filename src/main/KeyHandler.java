@@ -3,7 +3,9 @@ import java.awt.event.*;
 
 public class KeyHandler implements KeyListener{
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed, placeBombPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, placeBombPressed,
+	spacePressed, enterPressed;
+	
 	GamePanel gamePanel;
 
 	public KeyHandler(GamePanel gamePanel) {
@@ -13,120 +15,190 @@ public class KeyHandler implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
-
 		// game how to play state
-		// if player press esc key then go back to title screen
+		// if player press esc key then go back to previous screen
 		if(gamePanel.gameState == gamePanel.tutorialState) {
+			gamePanel.playSoundEffect("Click");
 			if(code == KeyEvent.VK_ESCAPE) {
-				gamePanel.gameState = gamePanel.titleState;
+				gamePanel.gameState = gamePanel.previousState[gamePanel.tutorialState];
+			}
+		}
+		if(gamePanel.gameState == gamePanel.settingState) {
+			if(code == KeyEvent.VK_ESCAPE) {
+				gamePanel.playSoundEffect("Click");
+				gamePanel.gameState = gamePanel.previousState[gamePanel.settingState];
 			}
 		}
 
+
+
 		// game pause state
-		if(code == KeyEvent.VK_P) {
+		if(code == KeyEvent.VK_SPACE) {
+			spacePressed = true;
 			if(gamePanel.gameState == gamePanel.playState) {
+				gamePanel.playSoundEffect("Click");
 				gamePanel.gameState = gamePanel.pauseState;
+				gamePanel.ui.commandNum = 0;
+			}
+			else if(gamePanel.gameState == gamePanel.pauseState) {
+				gamePanel.playSoundEffect("Click");
+				gamePanel.gameState = gamePanel.playState;
 			}
 		}
 		if(gamePanel.gameState == gamePanel.pauseState) {
-			if(code == KeyEvent.VK_W) {
+			if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+				gamePanel.playSoundEffect("Click");
 				gamePanel.ui.commandNum--;
 				if(gamePanel.ui.commandNum < 0) {
-					gamePanel.ui.commandNum = 2;
+					gamePanel.ui.commandNum = 3;
 				}
 			}
-			if(code == KeyEvent.VK_S) {
+			if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+				gamePanel.playSoundEffect("Click");
 				gamePanel.ui.commandNum++;
-				if(gamePanel.ui.commandNum > 1) {
+				if(gamePanel.ui.commandNum > 3) {
 					gamePanel.ui.commandNum = 0;
+				}
+			}
+		}
+
+		// game finish state
+		if(gamePanel.gameState == gamePanel.finishState) {
+			if(gamePanel.checkKeyHandlerFinishState == true) {
+				if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+					gamePanel.playSoundEffect("Click");
+					gamePanel.ui.commandNum--;
+					if(gamePanel.ui.commandNum < 0) {
+						gamePanel.ui.commandNum = 1;
+					}
+				}
+				if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+					gamePanel.playSoundEffect("Click");
+					gamePanel.ui.commandNum++;
+					if(gamePanel.ui.commandNum > 1) {
+						gamePanel.ui.commandNum = 0;
+					}
 				}
 			}
 		}
 
 		// title state
 		if(gamePanel.gameState == gamePanel.titleState) {
-			if(code == KeyEvent.VK_W) {
+			int limit = gamePanel.continuable?-1:0;
+			if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+				gamePanel.playSoundEffect("Click");
 				gamePanel.ui.commandNum--;
-				if(gamePanel.ui.commandNum < 0) {
-					gamePanel.ui.commandNum = 2;
+				if(gamePanel.ui.commandNum < limit) {
+					gamePanel.ui.commandNum = 3;
 				}
 			}
-			if(code == KeyEvent.VK_S) {
+			if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+				gamePanel.playSoundEffect("Click");
 				gamePanel.ui.commandNum++;
-				if(gamePanel.ui.commandNum > 2) {
-					gamePanel.ui.commandNum = 0;
+				if(gamePanel.ui.commandNum > 3) {
+					gamePanel.ui.commandNum = limit;
 				}
 			}
 		}
 		
-		// for title state and pause state
+		// for title state and pause state (choose command)
 		if(code == KeyEvent.VK_ENTER) {
+			
 			// title
+			enterPressed = true;
 			if(gamePanel.gameState == gamePanel.titleState) {
+				gamePanel.playSoundEffect("Click");
+				if(gamePanel.ui.commandNum == -1) {
+					gamePanel.gameState = gamePanel.playState;
+				}
+				if(gamePanel.ui.commandNum == 0) {
+					gamePanel.newGame();
+				}
+				else if (gamePanel.ui.commandNum == 1) {
+					gamePanel.gameState = gamePanel.tutorialState;
+					gamePanel.previousState[gamePanel.tutorialState] = gamePanel.titleState;
+				}
+				else if(gamePanel.ui.commandNum == 2) {
+					gamePanel.gameState = gamePanel.settingState;
+					gamePanel.previousState[gamePanel.settingState] = gamePanel.titleState;
+				}
+				else if(gamePanel.ui.commandNum == 3) {
+					System.exit(0);
+				}
+			}
+			
+			// pause
+			if(gamePanel.gameState == gamePanel.pauseState) {
+				gamePanel.playSoundEffect("Click");
 				if(gamePanel.ui.commandNum == 0) {
 					gamePanel.gameState = gamePanel.playState;
 				}
 				else if (gamePanel.ui.commandNum == 1) {
 					gamePanel.gameState = gamePanel.tutorialState;
+					gamePanel.previousState[gamePanel.tutorialState] = gamePanel.pauseState;
 				}
-				else if(gamePanel.ui.commandNum == 2) {
-					System.exit(0);
+				else if (gamePanel.ui.commandNum == 2) {
+					gamePanel.gameState = gamePanel.settingState;
+					gamePanel.previousState[gamePanel.settingState] = gamePanel.pauseState;
 				}
-			}
-
-			// pause
-			if(gamePanel.gameState == gamePanel.pauseState) {
-				if(gamePanel.ui.commandNum == 0) {
-					gamePanel.gameState = gamePanel.playState;
-				}
-				else if (gamePanel.ui.commandNum == 1) {
+				else if (gamePanel.ui.commandNum == 3) {
 					gamePanel.gameState = gamePanel.titleState;
+					gamePanel.continuable = true;
 					gamePanel.ui.commandNum = 0;
 				}
 			}
+		
+			// finish
+			if(gamePanel.gameState == gamePanel.finishState) {
+				gamePanel.music.play();
+				gamePanel.music.loop();
+				if(gamePanel.ui.commandNum == 0) {
+					gamePanel.newGame();
+				}
+				if(gamePanel.ui.commandNum == 1) {
+					gamePanel.gameState = gamePanel.titleState;
+					gamePanel.continuable = false;
+					gamePanel.ui.commandNum = 0;
+				}
+			}
+		
 		}
 
-		if(code == KeyEvent.VK_W) {
-			upPressed = true;
-		}
-		if(code == KeyEvent.VK_S) {
-			downPressed = true;
-		}
-		if(code == KeyEvent.VK_A) {
-			leftPressed = true;
-		}
-		if(code == KeyEvent.VK_D) {
-			rightPressed = true;
-		}
+
+		if(code == KeyEvent.VK_W) {upPressed = true;}
+		if(code == KeyEvent.VK_S) {downPressed = true;}
+		if(code == KeyEvent.VK_A) {leftPressed = true;}
+		if(code == KeyEvent.VK_D) {rightPressed = true;}
+
+		if(code == KeyEvent.VK_UP) {upPressed = true;}
+		if(code == KeyEvent.VK_DOWN) {downPressed = true;}
+		if(code == KeyEvent.VK_LEFT) {leftPressed = true;}
+		if(code == KeyEvent.VK_RIGHT) {rightPressed = true;}
 
 		// place bomb
-		if(code == KeyEvent.VK_B) {
-			placeBombPressed = true;
-		}
+		if(code == KeyEvent.VK_B) {placeBombPressed = true;}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int code = e.getKeyCode();
-		if(code == KeyEvent.VK_W) {
-			upPressed = false;
-		}
-		if(code == KeyEvent.VK_S) {
-			downPressed = false;
-		}
-		if(code == KeyEvent.VK_A) {
-			leftPressed = false;
-		}
-		if(code == KeyEvent.VK_D) {
-			rightPressed = false;
-		}
-		if(code == KeyEvent.VK_B) {
-			placeBombPressed = false;
-		}
+		if(code == KeyEvent.VK_W) {upPressed = false;}
+		if(code == KeyEvent.VK_S) {downPressed = false;}
+		if(code == KeyEvent.VK_A) {leftPressed = false;}
+		if(code == KeyEvent.VK_D) {rightPressed = false;}
+
+		if(code == KeyEvent.VK_UP) {upPressed = false;}
+		if(code == KeyEvent.VK_DOWN) {downPressed = false;}
+		if(code == KeyEvent.VK_LEFT) {leftPressed = false;}
+		if(code == KeyEvent.VK_RIGHT) {rightPressed = false;}
+
+		if(code == KeyEvent.VK_B) {placeBombPressed = false;}
+		if(code == KeyEvent.VK_SPACE) {spacePressed = false;}
+		if(code == KeyEvent.VK_ENTER) {enterPressed = false;}
 	}
 	
 }
