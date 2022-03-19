@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class Game extends JFrame{
 	public Game() {
-		this.setTitle("Bomberman 2");
+		this.setTitle("Covid Destroyer");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		GamePanel gamePanel = new GamePanel();

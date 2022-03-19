@@ -51,23 +51,14 @@ public class Player extends Entity{
 	}
 
 	public void loadPlayerImage() {
-		up1 = setup("../res/Player/Walking sprites/boy_up_1.png");
-		up2 = setup("../res/Player/Walking sprites/boy_up_2.png");
-		down1 = setup("../res/Player/Walking sprites/boy_down_1.png");
-		down2 = setup("../res/Player/Walking sprites/boy_down_2.png");
-		left1 = setup("../res/Player/Walking sprites/boy_left_1.png");
-		left2 = setup("../res/Player/Walking sprites/boy_left_2.png");
-		right1 = setup("../res/Player/Walking sprites/boy_right_1.png");
-		right2 = setup("../res/Player/Walking sprites/boy_right_2.png");
-
-		// up1 = setup("../res/Player/char/player_up_1.png");
-		// up2 = setup("../res/Player/char/player_up_2.png");
-		// down1 = setup("../res/Player/char/player_down_1.png");
-		// down2 = setup("../res/Player/char/player_down_2.png");
-		// left1 = setup("../res/Player/char/player_left_1.png");
-		// left2 = setup("../res/Player/char/player_left_2.png");
-		// right1 = setup("../res/Player/char/player_right_1.png");
-		// right2 = setup("../res/Player/char/player_right_2.png");
+		up1 = setup("../res/Player/Walking sprites/Masked/boy_up_1.png");
+		up2 = setup("../res/Player/Walking sprites/Masked/boy_up_2.png");
+		down1 = setup("../res/Player/Walking sprites/Masked/boy_down_1.png");
+		down2 = setup("../res/Player/Walking sprites/Masked/boy_down_2.png");
+		left1 = setup("../res/Player/Walking sprites/Masked/boy_left_1.png");
+		left2 = setup("../res/Player/Walking sprites/Masked/boy_left_2.png");
+		right1 = setup("../res/Player/Walking sprites/Masked/boy_right_1.png");
+		right2 = setup("../res/Player/Walking sprites/Masked/boy_right_2.png");
 	}
 
 	public void setupBomb() {

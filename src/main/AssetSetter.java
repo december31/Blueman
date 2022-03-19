@@ -169,7 +169,7 @@ public class AssetSetter {
 	
 			gamePanel.monsters[4] = new BOSS_Omicron(gamePanel);
 			gamePanel.monsters[4].worldX = gamePanel.tileSize * 10;
-			gamePanel.monsters[4].worldY = gamePanel.tileSize * (59 - 30);
+			gamePanel.monsters[4].worldY = gamePanel.tileSize * (58 - 30);
 		} else if(gamePanel.level == 4) {
 			gamePanel.monsters[0] = new BOSS_Alpha(gamePanel);
 			gamePanel.monsters[0].worldX = gamePanel.tileSize * 10;

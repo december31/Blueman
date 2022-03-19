@@ -317,7 +317,7 @@ public class UI {
 		g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
 		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 120));
-		String text = "Bomberman 2";
+		String text = "Covid Destroyer";
 		int x = getXForCenteredText(g2D, text);
 		int y = gamePanel.tileSize * 2 + gamePanel.tileSize / 2;
 

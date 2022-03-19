@@ -276,9 +276,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public Entity randomItem() {
 		int rand = random.nextInt(0,100);
 		if(rand < 5) return new OBJ_HealingPotion(this);
-		else if(rand < 25) return new OBJ_ExtraBomb(this);
-		else if(rand < 50) return new OBJ_LevelUpBomb(this);
-		else if(rand < 60) return new OBJ_Boots(this);
+		else if(rand < 20) return new OBJ_ExtraBomb(this);
+		else if(rand < 30) return new OBJ_LevelUpBomb(this);
+		else if(rand < 35) return new OBJ_Boots(this);
 		return null;
 	}
 
