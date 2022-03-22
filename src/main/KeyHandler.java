@@ -105,6 +105,26 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 		
+		// exit confirm state
+		if(gamePanel.gameState == gamePanel.exitConfirmState) {
+			if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT || code == KeyEvent.VK_A) {
+				gamePanel.playSoundEffect("Click");
+				if(gamePanel.ui.exitConfirmCommandNum == 0) {
+					gamePanel.ui.exitConfirmCommandNum = 1;
+				} else {
+					gamePanel.ui.exitConfirmCommandNum = 0;
+				}
+			}
+			if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_D) {
+				gamePanel.playSoundEffect("Click");
+				if(gamePanel.ui.exitConfirmCommandNum == 0) {
+					gamePanel.ui.exitConfirmCommandNum = 1;
+				} else {
+					gamePanel.ui.exitConfirmCommandNum = 0;
+				}
+			}
+		}
+		
 		// for title state and pause state (choose command)
 		if(code == KeyEvent.VK_ENTER) {
 			
@@ -127,12 +147,24 @@ public class KeyHandler implements KeyListener{
 					gamePanel.previousState[gamePanel.settingState] = gamePanel.titleState;
 				}
 				else if(gamePanel.ui.commandNum == 3) {
+					gamePanel.gameState = gamePanel.exitConfirmState;
+				}
+			}
+
+			// exit confirmation
+			else if(gamePanel.gameState == gamePanel.exitConfirmState) {
+				gamePanel.playSoundEffect("Click");
+				if(gamePanel.ui.exitConfirmCommandNum == 0) {
 					System.exit(0);
+				}
+				else if(gamePanel.ui.exitConfirmCommandNum == 1) {
+					gamePanel.gameState = gamePanel.titleState;
+					gamePanel.ui.exitConfirmCommandNum = 0;
 				}
 			}
 			
 			// pause
-			if(gamePanel.gameState == gamePanel.pauseState) {
+			else if(gamePanel.gameState == gamePanel.pauseState) {
 				gamePanel.playSoundEffect("Click");
 				if(gamePanel.ui.commandNum == 0) {
 					gamePanel.gameState = gamePanel.playState;
@@ -153,7 +185,7 @@ public class KeyHandler implements KeyListener{
 			}
 		
 			// finish
-			if(gamePanel.gameState == gamePanel.finishState) {
+			else if(gamePanel.gameState == gamePanel.finishState) {
 				gamePanel.music.play();
 				gamePanel.music.loop();
 				if(gamePanel.ui.commandNum == 0) {

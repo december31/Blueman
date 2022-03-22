@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 
 	public Player player = new Player(this);
-	public Entity[] objects = new Entity[150];
+	public Entity[] objects = new Entity[160];
 	public Entity[] items = new Entity[10];
 	public Entity[] monsters = new Entity[20];
 	public OBJ_Bomb[] bombs = new OBJ_Bomb[20];
@@ -67,10 +67,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public int tutorialState = 3;
 	public int settingState = 4;
 	public int finishState = 5;
-	public int[] previousState = new int[6];
+	public int exitConfirmState = 6;
+	public int[] previousState = new int[7];
 	public boolean checkKeyHandlerFinishState = false;
 
 	public int level;
+
 	// last monster killed coordinate
 	int monsterWorldX = 0;
 	int monsterWorldY = 0;
@@ -93,7 +95,7 @@ public class GamePanel extends JPanel implements Runnable{
 		level = 1;
 		continuable = false;
 		gameState = titleState;
-		objects = new Entity[150];
+		objects = new Entity[160];
 		assetSetter.setObject();
 		assetSetter.setMonster();
 	}
@@ -174,10 +176,6 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 			}
 
-			// if(soundEffect.isRunning() == false && music.isRunning() == false) {
-			// 	music.play();
-			// }
-
 			// BOMBS
 			for(int i = 0; i < bombs.length; i++) {
 				if(!bombs[i].isExploded) {
@@ -198,7 +196,7 @@ public class GamePanel extends JPanel implements Runnable{
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D)g;
-		if(gameState == titleState || gameState == tutorialState || gameState == settingState) {
+		if(gameState == titleState || gameState == tutorialState || gameState == settingState || gameState == exitConfirmState) {
 			ui.draw(g2D);
 		} else {
 			// TILES

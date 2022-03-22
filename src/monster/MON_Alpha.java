@@ -9,7 +9,7 @@ public class MON_Alpha extends Entity{
 	public MON_Alpha(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Alpha";
-		speed = 1;
+		speed = 2;
 		maxLife = 1;
 		life = maxLife;
 

@@ -147,7 +147,7 @@ public class Player extends Entity{
 					gamePanel.playSoundEffect("Key");
 					gamePanel.objects[i] = null;
 					hasKey++;
-					gamePanel.ui.showMessage("you got a key!");
+					gamePanel.ui.showMessage("Oh!! it's a key!");
 					point += 20;
 					break;
 				case "Door":
@@ -159,7 +159,7 @@ public class Player extends Entity{
 						hasKey--;
 						gamePanel.ui.showMessage("door opened!");
 					} else if (gamePanel.objects[i].collision == true){
-						gamePanel.ui.showMessage("this door is locked! You might need a key");
+						gamePanel.ui.showMessage("this door is locked! I need a key");
 					}
 					break;
 				case "Boots":

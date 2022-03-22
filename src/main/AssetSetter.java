@@ -71,6 +71,59 @@ public class AssetSetter {
 		}
 		
 
+		gamePanel.objects[objectIndex] = new OBJ_Crate(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 18 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 71 * gamePanel.tileSize;
+		objectIndex++;
+		
+		gamePanel.objects[objectIndex] = new OBJ_Crate(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 12 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 75 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Bush(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 12 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 71 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Bush(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 12 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 74 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Bush(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 14 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 75 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Bush(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 18 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 75 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Bush(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 18 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 72 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Rock(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 17 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 72 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Rock(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 12 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 73 * gamePanel.tileSize;
+		objectIndex++;
+
+		gamePanel.objects[objectIndex] = new OBJ_Rock(gamePanel);
+		gamePanel.objects[objectIndex].worldX = 13 * gamePanel.tileSize;
+		gamePanel.objects[objectIndex].worldY = 75 * gamePanel.tileSize;
+		objectIndex++;
+
+
+
+
 		gamePanel.objects[objectIndex] = new OBJ_Door(gamePanel);
 		gamePanel.objects[objectIndex].worldX = 15 * gamePanel.tileSize;
 		gamePanel.objects[objectIndex].worldY = 70 * gamePanel.tileSize + 4;

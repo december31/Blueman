@@ -87,7 +87,7 @@ public class Entity {
 		gamePanel.collisionChecker.checkEntity(gamePanel.monsters, this);
 		gamePanel.collisionChecker.checkEntity(gamePanel.bombs, this);
 		int contactPlayer = gamePanel.collisionChecker.checkPlayer(this);
-		
+	
 		if(type == 2) {
 			gamePanel.player.takeDamage(contactPlayer);
 		}

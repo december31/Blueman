@@ -9,16 +9,18 @@ import javax.imageio.ImageIO;
 
 import object.OBJ_Bomb;
 import object.OBJ_Heart;
+import object.OBJ_LevelUpBomb;
 
 public class UI {
 	
 	GamePanel gamePanel;
 	Font arial_40, arial_80B, NewellsHand_40, pixel;
-	BufferedImage bombImage;
+	BufferedImage bombImage, bombPowerImage;
 	public boolean messageOn = false;
 	public String message = "";
 	public int messageCounter = 0;
 	public int commandNum = 0;
+	public int exitConfirmCommandNum = 0;
 
 	public int chooseEffectCounter = 0;
 	public boolean commandChose = false;
@@ -60,7 +62,7 @@ public class UI {
 		}
 
 		// import tutorial image
-		background = loadImage("../res/Title/title.png", gamePanel.screenWidth, gamePanel.screenHeight);
+		background = loadImage("../res/Title/title2.png", gamePanel.screenWidth, gamePanel.screenHeight);
 		escape = loadImage("../res/Title/escape.png", gamePanel.tileSize / 2, gamePanel.tileSize / 2);
 		control = loadImage("../res/Title/control.png", 3);
 		placeBomb = loadImage("../res/Title/placeBomb.png", 3);
@@ -74,6 +76,8 @@ public class UI {
 
 		OBJ_Bomb bomb = new OBJ_Bomb(gamePanel);
 		bombImage = bomb.image;
+		OBJ_LevelUpBomb levelUpBomb = new OBJ_LevelUpBomb(gamePanel);
+		bombPowerImage = levelUpBomb.image;
 
 		OBJ_Heart heart = new OBJ_Heart(gamePanel);
 		heart_blank = heart.image;
@@ -112,7 +116,7 @@ public class UI {
 
 	public void draw(Graphics2D g2D) {
 		g2D.setFont(pixel);
-		if(gamePanel.gameState == gamePanel.titleState) {
+		if(gamePanel.gameState == gamePanel.titleState || gamePanel.gameState == gamePanel.exitConfirmState) {
 			drawTitleScreen(g2D);
 		}
 		else if(gamePanel.gameState == gamePanel.pauseState) {
@@ -131,6 +135,8 @@ public class UI {
 			drawPlayScreen(g2D);
 		}
 	}
+
+
 
 	private void drawPlayScreen(Graphics2D g2D) {
 		// draw max heart possible
@@ -161,18 +167,13 @@ public class UI {
 		g2D.setColor(Color.white);
 		g2D.drawImage(bombImage, gamePanel.tileSize/2, gamePanel.tileSize/2 + gamePanel.tileSize, null);
 		g2D.drawString(" x " + bombCount, 74, 65 + gamePanel.tileSize);
+
+		int bombPower = OBJ_Bomb.power;
+		g2D.setFont(arial_40);
+		g2D.setColor(Color.white);
+		g2D.drawImage(bombPowerImage, gamePanel.tileSize/2, gamePanel.tileSize/2 + gamePanel.tileSize * 2 + 10, null);
+		g2D.drawString(" x " + bombPower, 74, 65 + gamePanel.tileSize * 2 + 10);
 		
-		// draw message
-		if(messageOn == true) {
-			g2D.drawString(message, gamePanel.tileSize / 2, gamePanel.screenHeight / 2 - g2D.getFont().getSize());
-			messageCounter++;
-
-			if(messageCounter > 120) {
-				messageCounter = 0;
-				messageOn = false;
-			}
-		}
-
 		// draw point
 		int point = gamePanel.player.point;
 		g2D.setFont(pixel.deriveFont(Font.PLAIN, 60));
@@ -184,6 +185,53 @@ public class UI {
 		g2D.setFont(arial_40.deriveFont(Font.PLAIN, 20));
 		g2D.setColor(Color.white);
 		g2D.drawString(String.format("fps: %d", fps), 700, 550);
+		
+		// draw message
+		if(messageOn == true) {
+
+			int messageLength = (int)g2D.getFontMetrics().getStringBounds(message, g2D).getWidth();
+
+			int messageBoxWidth = messageLength + 100;
+			int messageBoxHeight = 80;
+			x = gamePanel.screenWidth / 2 - messageBoxWidth / 2;
+			y = 130;
+
+			g2D.setColor(new Color(255,255,255,20));
+			for(int j = 6; j > 0; j--) {
+				g2D.fillRoundRect(x - j, y - j, messageBoxWidth + j * 2, messageBoxHeight + j * 2, 30, 30);
+			}
+			// g2D.setColor(new Color(255,255,255,70));
+			// g2D.fillRoundRect(x - 4, y - 4, messageBoxWidth + 8, messageBoxHeight + 8, 30, 30);
+			// g2D.setColor(new Color(255,255,255,90));
+			// g2D.fillRoundRect(x - 3, y - 3, messageBoxWidth + 6, messageBoxHeight + 6, 30, 30);
+			// g2D.setColor(new Color(255,255,255,110));
+			// g2D.fillRoundRect(x - 2, y - 2, messageBoxWidth + 4, messageBoxHeight + 4, 30, 30);
+			// g2D.setColor(new Color(255,255,255,130));
+			// g2D.fillRoundRect(x - 1, y - 1, messageBoxWidth + 2, messageBoxHeight + 2, 30, 30);
+
+			g2D.setColor(Color.black);
+			int[] triangleX = {	x + messageBoxWidth / 2 + 50,
+								x + messageBoxWidth / 2 + 24,
+								x + messageBoxWidth / 2 + 80};
+
+			int[] triangleY = {y + messageBoxHeight, y + messageBoxHeight + gamePanel.tileSize, y + messageBoxHeight};
+			g2D.fillPolygon(new Polygon(triangleX, triangleY, 3));
+
+			g2D.setColor(new Color(0,0,0,210));
+			g2D.fillRoundRect(x, y, messageBoxWidth, messageBoxHeight, 30, 30);
+
+			g2D.setColor(Color.white);
+			g2D.setFont(pixel.deriveFont(Font.BOLD, 30));
+			x = getXForCenteredText(g2D, message);
+			y = 177;
+			g2D.drawString(message, x, y);
+			messageCounter++;
+	
+			if(messageCounter > 120) {
+				messageCounter = 0;
+				messageOn = false;
+			}
+		}
 	}
 
 	public void drawFinishScreen(Graphics2D g2D) {
@@ -313,10 +361,10 @@ public class UI {
 	public void drawTitleScreen(Graphics2D g2D) {
 		BufferedImage titleImage = background;
 		g2D.drawImage(titleImage, 0, 0, gamePanel.screenWidth, gamePanel.screenHeight, null);
-		g2D.setColor(new Color(0,0,0,150));
+		g2D.setColor(new Color(0,0,0,170));
 		g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
-		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 120));
+		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 115));
 		String text = "Covid Destroyer";
 		int x = getXForCenteredText(g2D, text);
 		int y = gamePanel.tileSize * 2 + gamePanel.tileSize / 2;
@@ -338,7 +386,7 @@ public class UI {
 		if(gamePanel.continuable == true) {
 			y = gamePanel.tileSize * 3 + gamePanel.tileSize / 2;
 		} else {
-			y = gamePanel.tileSize * 5;
+			y = gamePanel.tileSize * 5 - gamePanel.tileSize / 2;
 		}
 		g2D.drawImage(gamePanel.player.down1, x, y, size, size ,null);
 
@@ -400,7 +448,48 @@ public class UI {
 		} else {
 			g2D.setColor(Color.white);
 		}
-		g2D.drawString(text, x, y);		
+		g2D.drawString(text, x, y);	
+
+		if(gamePanel.gameState == gamePanel.exitConfirmState) {
+			g2D.setColor(new Color(0,0,0,150));
+			g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
+
+			g2D.setColor(new Color(0x733702));
+			g2D.fillRoundRect(100, 200, gamePanel.screenWidth - 200, gamePanel.screenHeight - 400, 30, 30);
+			g2D.setColor(Color.white);
+			g2D.fillRoundRect(110, 210, gamePanel.screenWidth - 220, gamePanel.screenHeight - 420, 30, 30);
+			g2D.setColor(new Color(0x733702));
+			g2D.fillRoundRect(120, 220, gamePanel.screenWidth - 240, gamePanel.screenHeight - 440, 30, 30);
+
+			text = "Are you sure you want to exit?";
+			x = getXForCenteredText(g2D, text);
+			y = 260;
+			g2D.setColor(Color.white);
+			g2D.drawString(text, x, y);
+			
+			text = "Yes";
+			x = 250;
+			y = 330;
+			if(exitConfirmCommandNum == 0) {
+				g2D.setColor(Color.yellow);
+				g2D.drawString(">", x - gamePanel.tileSize / 2, y - 2);
+			} else {
+				g2D.setColor(Color.white);
+			}
+			g2D.drawString(text, x, y);
+			
+			text = "No";
+			x = 470;
+			y = 330;
+			if(exitConfirmCommandNum == 1) {
+				g2D.setColor(Color.yellow);
+				g2D.drawString(">", x - gamePanel.tileSize / 2, y - 2);
+			} else {
+				g2D.setColor(Color.white);
+			}
+			g2D.drawString(text, x, y);
+		}
+		
 	}
 	
 	public void drawPauseScreen(Graphics2D g2D) {
