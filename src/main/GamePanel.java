@@ -256,7 +256,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void playMusic() {
 		music.setFile("Background");
-		music.setVolume(ui.musicVolume/2 - 44);
+		music.setVolume(ui.musicVolume);
 		music.play();
 		music.loop();
 	}
@@ -267,7 +267,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void playSoundEffect(String type) {
 		soundEffect.setFile(type);
-		soundEffect.setVolume(ui.effectVolume/2 - 44);
+		soundEffect.setVolume(ui.effectVolume);
 		soundEffect.play();
 	}
 

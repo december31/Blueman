@@ -9,8 +9,8 @@ public class MON_Omicron extends Entity{
 	public MON_Omicron(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Omicron";
-		speed = 1;
-		maxLife = 1;
+		speed = 2;
+		maxLife = 2;
 		life = maxLife;
 
 		solidArea.x = 9;

@@ -9,14 +9,14 @@ public class BOSS_Alpha extends Entity{
 
 	public BOSS_Alpha(GamePanel gamePanel) {
 		super(gamePanel);
-		speed = 1;
+		speed = 2;
 		maxLife = 4;
 		life = maxLife;
 		name = "Super Alpha";
-		solidArea.x = 18;
-		solidArea.y = 18;
-		solidArea.width = 60;
-		solidArea.height = 60;
+		solidArea.x = 10;
+		solidArea.y = 10;
+		solidArea.width = 76;
+		solidArea.height = 76;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 		collision = true;

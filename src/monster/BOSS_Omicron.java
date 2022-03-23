@@ -10,13 +10,13 @@ public class BOSS_Omicron extends Entity{
 	public BOSS_Omicron(GamePanel gamePanel) {
 		super(gamePanel);
 		speed = 1;
-		maxLife = 4;
+		maxLife = 6;
 		life = maxLife;
 		name = "Super Omicron";
-		solidArea.x = 18;
-		solidArea.y = 18;
-		solidArea.width = 60;
-		solidArea.height = 60;
+		solidArea.x = 10;
+		solidArea.y = 10;
+		solidArea.width = 76;
+		solidArea.height = 76;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 		collision = true;

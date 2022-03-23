@@ -133,7 +133,7 @@ public class TileManager {
 				
 				if(
 					worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX &&
-					worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX && 
+					worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX &&
 					worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY &&
 					worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY
 				) {

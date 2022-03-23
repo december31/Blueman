@@ -45,7 +45,18 @@ public class Sound {
 	}
 
 	public void setVolume(int volume) {
-		floatControl.setValue(volume);
+		if(volume == 0) {
+			floatControl.setValue(-80);
+		} 
+		else if(volume == 50) {
+			floatControl.setValue(0);
+		}
+		else if(volume < 50) {
+			floatControl.setValue(volume - 50);
+		}
+		else {
+			floatControl.setValue((6 / 50) * volume);
+		}
 	}
 
 	public void play() {

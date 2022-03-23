@@ -9,14 +9,14 @@ public class BOSS_Delta extends Entity{
 
 	public BOSS_Delta(GamePanel gamePanel) {
 		super(gamePanel);
-		speed = 1;
-		maxLife = 4;
+		speed = 2;
+		maxLife = 3;
 		life = maxLife;
 		name = "Super Delta";
-		solidArea.x = 18;
-		solidArea.y = 18;
-		solidArea.width = 60;
-		solidArea.height = 60;
+		solidArea.x = 10;
+		solidArea.y = 10;
+		solidArea.width = 76;
+		solidArea.height = 76;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 		collision = true;

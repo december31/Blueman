@@ -62,7 +62,7 @@ public class UI {
 		}
 
 		// import tutorial image
-		background = loadImage("../res/Title/title2.png", gamePanel.screenWidth, gamePanel.screenHeight);
+		background = loadImage("../res/Title/title1.png", gamePanel.screenWidth, gamePanel.screenHeight);
 		escape = loadImage("../res/Title/escape.png", gamePanel.tileSize / 2, gamePanel.tileSize / 2);
 		control = loadImage("../res/Title/control.png", 3);
 		placeBomb = loadImage("../res/Title/placeBomb.png", 3);
@@ -679,16 +679,9 @@ public class UI {
 				}
 				musicVolume = musicVolumeWidth / oneScale;
 				effectVolume = effectVolumeWidth / oneScale;
-				if(musicVolume == 0) {
-					gamePanel.music.setVolume(-80);
-				} else {
-					gamePanel.music.setVolume(musicVolume / 2 - 44);
-				}
-				if(effectVolume == 0) {
-					gamePanel.soundEffect.setVolume(-80);
-				} else {
-					gamePanel.soundEffect.setVolume(musicVolume / 2 - 44);
-				}
+				gamePanel.music.setVolume(musicVolume);
+				gamePanel.soundEffect.setVolume(effectVolume);
+
 			}
 		}
 	}
