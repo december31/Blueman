@@ -287,7 +287,7 @@ public class UI {
 		// BACKGROUND
 		image = background;
 		g2D.drawImage(image, 0, 0, null);
-		g2D.setColor(new Color(0,0,0,150));
+		g2D.setColor(new Color(0,0,0,190));
 		g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
 		// ESCAPE
@@ -498,8 +498,8 @@ public class UI {
 		g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 		g2D.setColor(Color.white);
 		
-		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 120));
-		String text = "Bomberman 2";
+		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 115));
+		String text = "Covid Destroyer";
 		int x = getXForCenteredText(g2D, text);
 		int y = gamePanel.tileSize * 3;
 
