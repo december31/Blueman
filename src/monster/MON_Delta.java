@@ -27,14 +27,14 @@ public class MON_Delta extends Entity{
 	}
 	
 	public void loadImage() {
-		up1 = setup("../res/Monster/delta0.png");
-		up2 = setup("../res/Monster/delta1.png");
-		down1 = setup("../res/Monster/delta0.png");
-		down2 = setup("../res/Monster/delta1.png");
-		left1 = setup("../res/Monster/delta0.png");
-		left2 = setup("../res/Monster/delta1.png");
-		right1 = setup("../res/Monster/delta0.png");
-		right2 = setup("../res/Monster/delta1.png");
+		up1 = setup("../res/monster/delta0.png");
+		up2 = setup("../res/monster/delta1.png");
+		down1 = setup("../res/monster/delta0.png");
+		down2 = setup("../res/monster/delta1.png");
+		left1 = setup("../res/monster/delta0.png");
+		left2 = setup("../res/monster/delta1.png");
+		right1 = setup("../res/monster/delta0.png");
+		right2 = setup("../res/monster/delta1.png");
 	}
 
 	@Override

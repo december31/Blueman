@@ -10,9 +10,9 @@ public class OBJ_Bush extends Entity{
 	public OBJ_Bush(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Bush";
-		down1 = setup("../res/Object/bush00.png");
-		image1 = setup("../res/Object/bush01.png");
-		image2 = setup("../res/Object/bush02.png");
+		down1 = setup("../res/object/bush00.png");
+		image1 = setup("../res/object/bush01.png");
+		image2 = setup("../res/object/bush02.png");
 		collision = true;
 		breakable = true;
 	}

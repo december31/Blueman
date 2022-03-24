@@ -56,23 +56,23 @@ public class UI {
 		arial_80B = new Font("Arial", Font.BOLD, 80);
 		NewellsHand_40 = new Font("NewellsHand", Font.BOLD, 40);
 		try {
-			pixel = Font.createFont(Font.TRUETYPE_FONT, new File("../res/Font/pixels.ttf"));
+			pixel = Font.createFont(Font.TRUETYPE_FONT, new File("../res/font/pixels.ttf"));
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
 
 		// import tutorial image
-		background = loadImage("../res/Title/title1.png", gamePanel.screenWidth, gamePanel.screenHeight);
-		escape = loadImage("../res/Title/escape.png", gamePanel.tileSize / 2, gamePanel.tileSize / 2);
-		control = loadImage("../res/Title/control.png", 3);
-		placeBomb = loadImage("../res/Title/placeBomb.png", 3);
-		pause = loadImage("../res/Title/space.png", 3);
-		pressedW = loadImage("../res/Title/pressedW.png", 3);
-		pressedS = loadImage("../res/Title/pressedS.png", 3);
-		pressedA = loadImage("../res/Title/pressedA.png", 3);
-		pressedD = loadImage("../res/Title/pressedD.png", 3);
-		pressedB = loadImage("../res/Title/pressedB.png", 3);
-		pressedSpace = loadImage("../res/Title/pressedSpace.png", 3);
+		background = loadImage("../res/title/title1.png", gamePanel.screenWidth, gamePanel.screenHeight);
+		escape = loadImage("../res/title/escape.png", gamePanel.tileSize / 2, gamePanel.tileSize / 2);
+		control = loadImage("../res/title/control.png", 3);
+		placeBomb = loadImage("../res/title/placeBomb.png", 3);
+		pause = loadImage("../res/title/space.png", 3);
+		pressedW = loadImage("../res/title/pressedW.png", 3);
+		pressedS = loadImage("../res/title/pressedS.png", 3);
+		pressedA = loadImage("../res/title/pressedA.png", 3);
+		pressedD = loadImage("../res/title/pressedD.png", 3);
+		pressedB = loadImage("../res/title/pressedB.png", 3);
+		pressedSpace = loadImage("../res/title/pressedSpace.png", 3);
 
 		OBJ_Bomb bomb = new OBJ_Bomb(gamePanel);
 		bombImage = bomb.image;
@@ -681,7 +681,6 @@ public class UI {
 				effectVolume = effectVolumeWidth / oneScale;
 				gamePanel.music.setVolume(musicVolume);
 				gamePanel.soundEffect.setVolume(effectVolume);
-
 			}
 		}
 	}

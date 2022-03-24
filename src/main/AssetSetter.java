@@ -35,10 +35,10 @@ public class AssetSetter {
 		}
 
 		String[] filePath = {
-			"../res/Map/objectMap1.txt",
-			"../res/Map/objectMap2.txt",
-			"../res/Map/objectMap3.txt",
-			"../res/Map/objectMap4.txt"
+			"../res/map/objectMap1.txt",
+			"../res/map/objectMap2.txt",
+			"../res/map/objectMap3.txt",
+			"../res/map/objectMap4.txt"
 		};
 		int[] originalYCoordinate = {56, 41, 26, 11};
 		int objectNum = 0;

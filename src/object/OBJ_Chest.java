@@ -8,7 +8,7 @@ public class OBJ_Chest extends Entity{
 	public OBJ_Chest(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Chest";
-		down1 = setup("../res/Object/chest1.png");
+		down1 = setup("../res/object/chest1.png");
 	}
 
 }

@@ -27,14 +27,14 @@ public class MON_Slime extends Entity{
 	}
 
 	public void loadImage() {
-		up1 = setup("../res/Monster/greenslime_down_1.png");
-		up2 = setup("../res/Monster/greenslime_down_2.png");
-		down1 = setup("../res/Monster/greenslime_down_1.png");
-		down2 = setup("../res/Monster/greenslime_down_2.png");
-		left1 = setup("../res/Monster/greenslime_down_1.png");
-		left2 = setup("../res/Monster/greenslime_down_2.png");
-		right1 = setup("../res/Monster/greenslime_down_1.png");
-		right2 = setup("../res/Monster/greenslime_down_2.png");
+		up1 = setup("../res/monster/greenslime_down_1.png");
+		up2 = setup("../res/monster/greenslime_down_2.png");
+		down1 = setup("../res/monster/greenslime_down_1.png");
+		down2 = setup("../res/monster/greenslime_down_2.png");
+		left1 = setup("../res/monster/greenslime_down_1.png");
+		left2 = setup("../res/monster/greenslime_down_2.png");
+		right1 = setup("../res/monster/greenslime_down_1.png");
+		right2 = setup("../res/monster/greenslime_down_2.png");
 	}
 	
 	@Override

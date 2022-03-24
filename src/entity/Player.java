@@ -51,14 +51,14 @@ public class Player extends Entity{
 	}
 
 	public void loadPlayerImage() {
-		up1 = setup("../res/Player/Walking sprites/Masked/boy_up_1.png");
-		up2 = setup("../res/Player/Walking sprites/Masked/boy_up_2.png");
-		down1 = setup("../res/Player/Walking sprites/Masked/boy_down_1.png");
-		down2 = setup("../res/Player/Walking sprites/Masked/boy_down_2.png");
-		left1 = setup("../res/Player/Walking sprites/Masked/boy_left_1.png");
-		left2 = setup("../res/Player/Walking sprites/Masked/boy_left_2.png");
-		right1 = setup("../res/Player/Walking sprites/Masked/boy_right_1.png");
-		right2 = setup("../res/Player/Walking sprites/Masked/boy_right_2.png");
+		up1 = setup("../res/player/Walking sprites/Masked/boy_up_1.png");
+		up2 = setup("../res/player/Walking sprites/Masked/boy_up_2.png");
+		down1 = setup("../res/player/Walking sprites/Masked/boy_down_1.png");
+		down2 = setup("../res/player/Walking sprites/Masked/boy_down_2.png");
+		left1 = setup("../res/player/Walking sprites/Masked/boy_left_1.png");
+		left2 = setup("../res/player/Walking sprites/Masked/boy_left_2.png");
+		right1 = setup("../res/player/Walking sprites/Masked/boy_right_1.png");
+		right2 = setup("../res/player/Walking sprites/Masked/boy_right_2.png");
 	}
 
 	public void setupBomb() {

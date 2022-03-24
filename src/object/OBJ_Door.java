@@ -8,8 +8,8 @@ public class OBJ_Door extends Entity{
 	public OBJ_Door(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Door";
-		down1 = setup("../res/Object/door00.png");
-		up1 = setup("../res/Object/door01.png");
+		down1 = setup("../res/object/door00.png");
+		up1 = setup("../res/object/door01.png");
 		collision = true;
 		breakable = false;
 	}

@@ -33,37 +33,37 @@ public class OBJ_Bomb extends Entity{
 	public OBJ_Bomb(GamePanel gamePanel) {
 		super(gamePanel);
 		try {
-			image = ImageIO.read(new File("../res/Object/bomb.png"));
+			image = ImageIO.read(new File("../res/object/bomb.png"));
 			image = uTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
 
-			up1 = setup("../res/Object/bomb00.png");
-			up2 = setup("../res/Object/bomb01.png");
-			down1 = setup("../res/Object/bomb02.png");
-			down2 = setup("../res/Object/bomb03.png");
-			left1 = setup("../res/Object/bomb04.png");
-			left2 = setup("../res/Object/bomb05.png");
-			right1 = setup("../res/Object/bomb06.png");
-			right2 = setup("../res/Object/bomb07.png");
+			up1 = setup("../res/object/bomb00.png");
+			up2 = setup("../res/object/bomb01.png");
+			down1 = setup("../res/object/bomb02.png");
+			down2 = setup("../res/object/bomb03.png");
+			left1 = setup("../res/object/bomb04.png");
+			left2 = setup("../res/object/bomb05.png");
+			right1 = setup("../res/object/bomb06.png");
+			right2 = setup("../res/object/bomb07.png");
 
-			explode[0][0] = setup("../res/Object/bombExplode/explode0.png");
-			explode[0][1] = setup("../res/Object/bombExplode/explodeH0.png");
-			explode[0][2] = setup("../res/Object/bombExplode/explodeV0.png");
+			explode[0][0] = setup("../res/object/bombExplode/explode0.png");
+			explode[0][1] = setup("../res/object/bombExplode/explodeH0.png");
+			explode[0][2] = setup("../res/object/bombExplode/explodeV0.png");
 
-			explode[1][0] = setup("../res/Object/bombExplode/explode1.png");
-			explode[1][1] = setup("../res/Object/bombExplode/explodeH1.png");
-			explode[1][2] = setup("../res/Object/bombExplode/explodeV1.png");
+			explode[1][0] = setup("../res/object/bombExplode/explode1.png");
+			explode[1][1] = setup("../res/object/bombExplode/explodeH1.png");
+			explode[1][2] = setup("../res/object/bombExplode/explodeV1.png");
 
-			explode[2][0] = setup("../res/Object/bombExplode/explode2.png");
-			explode[2][1] = setup("../res/Object/bombExplode/explodeH2.png");
-			explode[2][2] = setup("../res/Object/bombExplode/explodeV2.png");
+			explode[2][0] = setup("../res/object/bombExplode/explode2.png");
+			explode[2][1] = setup("../res/object/bombExplode/explodeH2.png");
+			explode[2][2] = setup("../res/object/bombExplode/explodeV2.png");
 
-			explode[3][0] = setup("../res/Object/bombExplode/explode3.png");
-			explode[3][1] = setup("../res/Object/bombExplode/explodeH3.png");
-			explode[3][2] = setup("../res/Object/bombExplode/explodeV3.png");
+			explode[3][0] = setup("../res/object/bombExplode/explode3.png");
+			explode[3][1] = setup("../res/object/bombExplode/explodeH3.png");
+			explode[3][2] = setup("../res/object/bombExplode/explodeV3.png");
 
-			explode[4][0] = setup("../res/Object/bombExplode/explode4.png");
-			explode[4][1] = setup("../res/Object/bombExplode/explodeH4.png");
-			explode[4][2] = setup("../res/Object/bombExplode/explodeV4.png");
+			explode[4][0] = setup("../res/object/bombExplode/explode4.png");
+			explode[4][1] = setup("../res/object/bombExplode/explodeH4.png");
+			explode[4][2] = setup("../res/object/bombExplode/explodeV4.png");
 			
 		} catch (IOException e) {
 			e.printStackTrace();

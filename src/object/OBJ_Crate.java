@@ -10,9 +10,9 @@ public class OBJ_Crate extends Entity{
 	public OBJ_Crate(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Crate";
-		down1 = setup("../res/Object/crate00.png");
-		image1 = setup("../res/Object/crate01.png");
-		image2 = setup("../res/Object/crate02.png");
+		down1 = setup("../res/object/crate00.png");
+		image1 = setup("../res/object/crate01.png");
+		image2 = setup("../res/object/crate02.png");
 		collision = true;
 		breakable = true;
 	}

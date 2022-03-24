@@ -18,18 +18,18 @@ public class Sound {
 	FloatControl floatControl;
 
 	public Sound() {
-		url.put("Click", "../res/Sound/click1.wav");
-		url.put("Background", "../res/Sound/background.wav");
-		url.put("Key", "../res/Sound/coin.wav");
-		url.put("Boots", "../res/Sound/powerup.wav");
-		url.put("Door", "../res/Sound/unlock.wav");
-		url.put("Chest", "../res/Sound/fanfare.wav");
-		url.put("Explode", "../res/Sound/explode.wav");
-		url.put("TakeDamage", "../res/Sound/takeDamage.wav");
-		url.put("BombLevelUp", "../res/Sound/bombLevelUp.wav");
-		url.put("Winning1", "../res/Sound/winning1.wav");
-		url.put("Winning2", "../res/Sound/winning2.wav");
-		url.put("Winning3", "../res/Sound/winning3.wav");
+		url.put("Click", "../res/sound/click1.wav");
+		url.put("Background", "../res/sound/background.wav");
+		url.put("Key", "../res/sound/coin.wav");
+		url.put("Boots", "../res/sound/powerup.wav");
+		url.put("Door", "../res/sound/unlock.wav");
+		url.put("Chest", "../res/sound/fanfare.wav");
+		url.put("Explode", "../res/sound/explode.wav");
+		url.put("TakeDamage", "../res/sound/takeDamage.wav");
+		url.put("BombLevelUp", "../res/sound/bombLevelUp.wav");
+		url.put("Winning1", "../res/sound/winning1.wav");
+		url.put("Winning2", "../res/sound/winning2.wav");
+		url.put("Winning3", "../res/sound/winning3.wav");
 	}
 
 	public void setFile(String type) {
@@ -47,7 +47,7 @@ public class Sound {
 	public void setVolume(int volume) {
 		if(volume == 0) {
 			floatControl.setValue(-80);
-		} 
+		}
 		else if(volume == 50) {
 			floatControl.setValue(0);
 		}
@@ -55,7 +55,7 @@ public class Sound {
 			floatControl.setValue(volume - 50);
 		}
 		else {
-			floatControl.setValue((6 / 50) * volume);
+			floatControl.setValue((float)((6.0 / 50) * (volume - 50)));
 		}
 	}
 

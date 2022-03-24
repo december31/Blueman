@@ -26,14 +26,14 @@ public class BOSS_Alpha extends Entity{
 	}
 
 	public void loadImage() {
-		up1 = setup("../res/Monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
-		up2 = setup("../res/Monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
-		down1 = setup("../res/Monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
-		down2 = setup("../res/Monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
-		left1 = setup("../res/Monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
-		left2 = setup("../res/Monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
-		right1 = setup("../res/Monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
-		right2 = setup("../res/Monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		up1 = setup("../res/monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		up2 = setup("../res/monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		down1 = setup("../res/monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		down2 = setup("../res/monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		left1 = setup("../res/monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		left2 = setup("../res/monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		right1 = setup("../res/monster/alpha0.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
+		right2 = setup("../res/monster/alpha1.png", gamePanel.tileSize * 2, gamePanel.tileSize * 2);
 	}
 
 	@Override

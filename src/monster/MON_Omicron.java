@@ -26,14 +26,14 @@ public class MON_Omicron extends Entity{
 	}
 	
 	public void loadImage() {
-		up1 = setup("../res/Monster/omicron0.png");
-		up2 = setup("../res/Monster/omicron1.png");
-		down1 = setup("../res/Monster/omicron0.png");
-		down2 = setup("../res/Monster/omicron1.png");
-		left1 = setup("../res/Monster/omicron0.png");
-		left2 = setup("../res/Monster/omicron1.png");
-		right1 = setup("../res/Monster/omicron0.png");
-		right2 = setup("../res/Monster/omicron1.png");
+		up1 = setup("../res/monster/omicron0.png");
+		up2 = setup("../res/monster/omicron1.png");
+		down1 = setup("../res/monster/omicron0.png");
+		down2 = setup("../res/monster/omicron1.png");
+		left1 = setup("../res/monster/omicron0.png");
+		left2 = setup("../res/monster/omicron1.png");
+		right1 = setup("../res/monster/omicron0.png");
+		right2 = setup("../res/monster/omicron1.png");
 	}
 
 	@Override

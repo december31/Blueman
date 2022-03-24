@@ -24,7 +24,7 @@ public class TileManager {
 		tiles = new Tile[60];
 		mapTilesNum = new int[gamePanel.maxWorldRow][gamePanel.maxWorldCol];
 
-		loadMap("../res/Map/worldV4.txt");
+		loadMap("../res/map/worldV4.txt");
 		getTileImage();
 	}
 
@@ -113,7 +113,7 @@ public class TileManager {
 
 		try {
 			tiles[index] = new Tile();
-			tiles[index].image = ImageIO.read(new File("../res/Tiles/My version/"+ imageName +".png"));
+			tiles[index].image = ImageIO.read(new File("../res/tiles/My version/"+ imageName +".png"));
 			tiles[index].image = uTool.scaleImage(tiles[index].image, gamePanel.tileSize, gamePanel.tileSize);
 			tiles[index].collision = collision;
 		} catch (IOException e) {

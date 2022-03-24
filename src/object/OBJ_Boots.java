@@ -9,6 +9,6 @@ public class OBJ_Boots extends Entity{
 	public OBJ_Boots(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Boots";
-		down1 = setup("../res/Object/boots.png");
+		down1 = setup("../res/object/boots.png");
 	}
 }

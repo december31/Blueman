@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void newGame() {
 		player.setDefaultValues();;
-		tileManager.loadMap("../res/Map/worldV4.txt");
+		tileManager.loadMap("../res/map/worldV4.txt");
 		setupGame();
 		gameState = playState;
 	}
@@ -146,7 +146,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private void update() {
 		if(gameState == playState) {
 			player.update();
-			
+
 			// MONSTER
 			int monsterCounter = monsters.length;
 

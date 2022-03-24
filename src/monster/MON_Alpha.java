@@ -26,14 +26,14 @@ public class MON_Alpha extends Entity{
 	}
 	
 	public void loadImage() {
-		up1 = setup("../res/Monster/alpha0.png");
-		up2 = setup("../res/Monster/alpha1.png");
-		down1 = setup("../res/Monster/alpha0.png");
-		down2 = setup("../res/Monster/alpha1.png");
-		left1 = setup("../res/Monster/alpha0.png");
-		left2 = setup("../res/Monster/alpha1.png");
-		right1 = setup("../res/Monster/alpha0.png");
-		right2 = setup("../res/Monster/alpha1.png");
+		up1 = setup("../res/monster/alpha0.png");
+		up2 = setup("../res/monster/alpha1.png");
+		down1 = setup("../res/monster/alpha0.png");
+		down2 = setup("../res/monster/alpha1.png");
+		left1 = setup("../res/monster/alpha0.png");
+		left2 = setup("../res/monster/alpha1.png");
+		right1 = setup("../res/monster/alpha0.png");
+		right2 = setup("../res/monster/alpha1.png");
 	}
 
 	@Override
