@@ -1,3 +1,4 @@
+
 package entity;
 
 import java.awt.*;
@@ -28,8 +29,27 @@ public class Player extends Entity{
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 
-		setDefaultValues();
 		loadPlayerImage();
+		setDefaultValues();
+	}
+
+	public void setValue() {
+		if(gamePanel.characterIndex == gamePanel.character0) {
+			maxLife = 10;
+			life = maxLife;
+			speed = 2;
+			hasBomb = 2;
+			maxBomb = hasBomb;
+			OBJ_Bomb.power = 1;
+		}
+		else if(gamePanel.characterIndex == gamePanel.character1) {
+			maxLife = 6;
+			life = maxLife;
+			speed = 3;
+			hasBomb = 1;
+			maxBomb = hasBomb;
+			OBJ_Bomb.power = 2;
+		}
 	}
 	
 	public void setDefaultValues() {
@@ -39,26 +59,35 @@ public class Player extends Entity{
 		speed = 3;
 		direction = "up";
 		invincibleTime = 2;
-		hasBomb = 1;
-		maxBomb = hasBomb;
+
 		hasKey = 0;
 		point = 0;
 
-		maxLife = 6;
 		alive = true;
-		life = maxLife;
 		dyingCounter = 0;
 	}
 
 	public void loadPlayerImage() {
-		up1 = setup("../res/player/Walking sprites/Masked/boy_up_1.png");
-		up2 = setup("../res/player/Walking sprites/Masked/boy_up_2.png");
-		down1 = setup("../res/player/Walking sprites/Masked/boy_down_1.png");
-		down2 = setup("../res/player/Walking sprites/Masked/boy_down_2.png");
-		left1 = setup("../res/player/Walking sprites/Masked/boy_left_1.png");
-		left2 = setup("../res/player/Walking sprites/Masked/boy_left_2.png");
-		right1 = setup("../res/player/Walking sprites/Masked/boy_right_1.png");
-		right2 = setup("../res/player/Walking sprites/Masked/boy_right_2.png");
+		if(gamePanel.characterIndex == gamePanel.character0) {
+			up1 = setup("../res/player/Walking sprites/Masked/boy_up_1.png");
+			up2 = setup("../res/player/Walking sprites/Masked/boy_up_2.png");
+			down1 = setup("../res/player/Walking sprites/Masked/boy_down_1.png");
+			down2 = setup("../res/player/Walking sprites/Masked/boy_down_2.png");
+			left1 = setup("../res/player/Walking sprites/Masked/boy_left_1.png");
+			left2 = setup("../res/player/Walking sprites/Masked/boy_left_2.png");
+			right1 = setup("../res/player/Walking sprites/Masked/boy_right_1.png");
+			right2 = setup("../res/player/Walking sprites/Masked/boy_right_2.png");
+		}
+		else if(gamePanel.characterIndex == gamePanel.character1) {
+			up1 = setup("../res/player/Walking sprites/Masked/girl_up_1.png");
+			up2 = setup("../res/player/Walking sprites/Masked/girl_up_2.png");
+			down1 = setup("../res/player/Walking sprites/Masked/girl_down_1.png");
+			down2 = setup("../res/player/Walking sprites/Masked/girl_down_2.png");
+			left1 = setup("../res/player/Walking sprites/Masked/girl_left_1.png");
+			left2 = setup("../res/player/Walking sprites/Masked/girl_left_2.png");
+			right1 = setup("../res/player/Walking sprites/Masked/girl_right_1.png");
+			right2 = setup("../res/player/Walking sprites/Masked/girl_right_2.png");
+		}
 	}
 
 	public void setupBomb() {

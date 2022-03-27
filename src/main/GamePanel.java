@@ -52,6 +52,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 
 	public Player player = new Player(this);
+	public int characterIndex = 0;
+	public int character0 = 0;
+	public int character1 = 1;
 	public Entity[] objects = new Entity[160];
 	public Entity[] items = new Entity[10];
 	public Entity[] monsters = new Entity[20];
@@ -68,7 +71,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public int settingState = 4;
 	public int finishState = 5;
 	public int exitConfirmState = 6;
-	public int[] previousState = new int[7];
+	public int chooseCharacterState = 7;
+	public int[] previousState = new int[8];
 	public boolean checkKeyHandlerFinishState = false;
 
 	public int level;
@@ -93,11 +97,16 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void setupGame() {
 		level = 1;
-		continuable = false;
-		gameState = titleState;
 		objects = new Entity[160];
 		assetSetter.setObject();
 		assetSetter.setMonster();
+
+		continuable = false;
+		
+		gameState = titleState;
+		
+		player.loadPlayerImage();
+		player.setValue();
 	}
 
 	public void newGame() {
@@ -196,9 +205,7 @@ public class GamePanel extends JPanel implements Runnable{
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D)g;
-		if(gameState == titleState || gameState == tutorialState || gameState == settingState || gameState == exitConfirmState) {
-			ui.draw(g2D);
-		} else {
+		if(gameState == playState || gameState == pauseState) {
 			// TILES
 			tileManager.draw(g2D);
 			
@@ -231,7 +238,7 @@ public class GamePanel extends JPanel implements Runnable{
 					entityList.add(monsters[i]);
 				}
 			}
-
+	
 			// sort ascending by world y coordinate
 			Collections.sort(entityList, new Comparator<Entity>() {
 				@Override
@@ -245,11 +252,13 @@ public class GamePanel extends JPanel implements Runnable{
 				entity.draw(g2D);
 			});
 			entityList.clear();
-
+	
 			// UI
 			ui.draw(g2D);
 		}
-		
+		else {
+			ui.draw(g2D);
+		}
 		
 		g2D.dispose();
 	}

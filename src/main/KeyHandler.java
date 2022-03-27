@@ -104,6 +104,26 @@ public class KeyHandler implements KeyListener{
 				}
 			}
 		}
+
+		// choose character state
+		if(gamePanel.gameState == gamePanel.chooseCharacterState) {
+			if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT || code == KeyEvent.VK_A) {
+				gamePanel.playSoundEffect("Click");
+				if(gamePanel.ui.commandNum == 0) {
+					gamePanel.ui.commandNum = 1;
+				} else {
+					gamePanel.ui.commandNum = 0;
+				}
+			}
+			if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_D) {
+				gamePanel.playSoundEffect("Click");
+				if(gamePanel.ui.commandNum == 0) {
+					gamePanel.ui.commandNum = 1;
+				} else {
+					gamePanel.ui.commandNum = 0;
+				}
+			}			
+		}
 		
 		// exit confirm state
 		if(gamePanel.gameState == gamePanel.exitConfirmState) {
@@ -125,7 +145,7 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 		
-		// for title state and pause state (choose command)
+		// Enter key to choose command
 		if(code == KeyEvent.VK_ENTER) {
 			
 			// title
@@ -136,7 +156,7 @@ public class KeyHandler implements KeyListener{
 					gamePanel.gameState = gamePanel.playState;
 				}
 				if(gamePanel.ui.commandNum == 0) {
-					gamePanel.newGame();
+					gamePanel.gameState = gamePanel.chooseCharacterState;
 				}
 				else if (gamePanel.ui.commandNum == 1) {
 					gamePanel.gameState = gamePanel.tutorialState;
@@ -149,6 +169,17 @@ public class KeyHandler implements KeyListener{
 				else if(gamePanel.ui.commandNum == 3) {
 					gamePanel.gameState = gamePanel.exitConfirmState;
 				}
+			}
+
+			// choose character
+			else if(gamePanel.gameState == gamePanel.chooseCharacterState) {
+				gamePanel.playSoundEffect("Click");
+				if(gamePanel.ui.commandNum == 0) {
+					gamePanel.characterIndex = 0;
+				} else {
+					gamePanel.characterIndex = 1;
+				}
+				gamePanel.newGame();
 			}
 
 			// exit confirmation

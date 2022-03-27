@@ -23,7 +23,6 @@ public class UI {
 	public int exitConfirmCommandNum = 0;
 
 	public int chooseEffectCounter = 0;
-	public boolean commandChose = false;
 	public int check = 0;
 
 	// volume control
@@ -131,12 +130,90 @@ public class UI {
 		else if(gamePanel.gameState == gamePanel.settingState) {
 			drawSettingScreen(g2D);
 		}
+		else if(gamePanel.gameState == gamePanel.chooseCharacterState){
+			drawChooseCharacter(g2D);
+		}
 		else {
 			drawPlayScreen(g2D);
 		}
 	}
 
 
+
+	private void drawChooseCharacter(Graphics2D g2D) {
+		BufferedImage image = background;
+		g2D.drawImage(image, 0, 0, gamePanel.screenWidth, gamePanel.screenHeight, null);
+		g2D.setColor(new Color(0,0,0,170));
+		g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
+
+		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 80));
+		String text = "choose your character";
+		int x = getXForCenteredText(g2D, text);
+		int y = gamePanel.tileSize * 2 + gamePanel.tileSize / 2;
+
+		// shadow
+		g2D.setColor(Color.gray);
+		for(int i = 1; i <= 5; i++) {
+			g2D.drawString(text, x + i, y + i);
+		}
+		// title
+		g2D.setColor(Color.white);
+		g2D.drawString(text, x, y);
+
+
+		// character
+		try {
+			int size = gamePanel.tileSize * 3;
+			int lineSpacing = 32;
+			y = gamePanel.screenHeight / 2 - gamePanel.tileSize;
+			BufferedImage arrowUp = ImageIO.read(new File("../res/title/arrowUp.png"));
+			// boy
+			image = ImageIO.read(new File("../res/player/Walking sprites/Masked/boy_down_1.png"));
+			x = gamePanel.screenWidth / 2 - (gamePanel.tileSize * 6);
+			if(commandNum == 0) {
+				g2D.setColor(new Color(47, 49, 89, 150));
+				g2D.fillRoundRect(x + gamePanel.tileSize * 3, y, 160, gamePanel.tileSize * 3, 30, 30);
+				g2D.setFont(g2D.getFont().deriveFont(Font.PLAIN, 30));
+				g2D.setColor(Color.white);
+				text = "hp: 5";
+				g2D.drawString(text, x + size + 30, y + lineSpacing);
+				text = "speed: 2";
+				g2D.drawString(text, x + size + 30, y + lineSpacing * 2);
+				text = "bombs: 2";
+				g2D.drawString(text, x + size + 30, y + lineSpacing * 3);
+				text = "power: 1";
+				g2D.drawString(text, x + size + 30, y + lineSpacing * 4);
+				int arrowX = x + gamePanel.tileSize;
+				int arrowY = y + gamePanel.tileSize * 3 + gamePanel.tileSize / 2;
+				g2D.drawImage(arrowUp, arrowX, arrowY, gamePanel.tileSize, gamePanel.tileSize, null);
+			}
+			g2D.drawImage(image, x, y, size, size ,null);
+
+			// girl
+			image = ImageIO.read(new File("../res/player/Walking sprites/Masked/girl_down_1.png"));
+			x = gamePanel.screenWidth / 2 + (gamePanel.tileSize * 3);
+			if(commandNum == 1) {
+				g2D.setColor(new Color(242, 61, 61, 150));
+				g2D.fillRoundRect(x - gamePanel.tileSize * 3 - 15, y, 160, gamePanel.tileSize * 3, 30, 30);
+				g2D.setFont(g2D.getFont().deriveFont(Font.PLAIN, 30));
+				g2D.setColor(Color.white);
+				text = "hp: 3";
+				g2D.drawString(text, x - gamePanel.tileSize * 3 + 15, y + lineSpacing);
+				text = "speed: 3";
+				g2D.drawString(text, x - gamePanel.tileSize * 3 + 15, y + lineSpacing * 2);
+				text = "bombs: 1";
+				g2D.drawString(text, x - gamePanel.tileSize * 3 + 15, y + lineSpacing * 3);
+				text = "power: 2";
+				g2D.drawString(text, x - gamePanel.tileSize * 3 + 15, y + lineSpacing * 4);
+				int arrowX = x + gamePanel.tileSize;
+				int arrowY = y + gamePanel.tileSize * 3 + gamePanel.tileSize / 2;
+				g2D.drawImage(arrowUp, arrowX, arrowY, gamePanel.tileSize, gamePanel.tileSize, null);
+			} 
+			g2D.drawImage(image, x, y, size, size ,null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void drawPlayScreen(Graphics2D g2D) {
 		// draw max heart possible
