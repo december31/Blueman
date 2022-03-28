@@ -76,7 +76,7 @@ public class UI {
 		OBJ_Bomb bomb = new OBJ_Bomb(gamePanel);
 		bombImage = bomb.image;
 		OBJ_LevelUpBomb levelUpBomb = new OBJ_LevelUpBomb(gamePanel);
-		bombPowerImage = levelUpBomb.image;
+		bombPowerImage = levelUpBomb.down1;
 
 		OBJ_Heart heart = new OBJ_Heart(gamePanel);
 		heart_blank = heart.image;
@@ -125,7 +125,7 @@ public class UI {
 			drawTutorialScreen(g2D);
 		}
 		else if(gamePanel.gameState == gamePanel.finishState) {
-			drawFinishScreen(g2D);;
+			drawFinishScreen(g2D);
 		}
 		else if(gamePanel.gameState == gamePanel.settingState) {
 			drawSettingScreen(g2D);
@@ -137,7 +137,6 @@ public class UI {
 			drawPlayScreen(g2D);
 		}
 	}
-
 
 
 	private void drawChooseCharacter(Graphics2D g2D) {

@@ -94,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		playMusic();
 	}
-	
+
 	public void setupGame() {
 		level = 1;
 		objects = new Entity[160];
@@ -205,7 +205,7 @@ public class GamePanel extends JPanel implements Runnable{
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D)g;
-		if(gameState == playState || gameState == pauseState) {
+		if(gameState == playState || gameState == pauseState || gameState == finishState) {
 			// TILES
 			tileManager.draw(g2D);
 			

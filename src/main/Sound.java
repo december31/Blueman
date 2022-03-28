@@ -30,6 +30,7 @@ public class Sound {
 		url.put("Winning1", "../res/sound/winning1.wav");
 		url.put("Winning2", "../res/sound/winning2.wav");
 		url.put("Winning3", "../res/sound/winning3.wav");
+		url.put("Loose", "../res/sound/loose.wav");
 	}
 
 	public void setFile(String type) {

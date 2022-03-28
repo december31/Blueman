@@ -60,7 +60,7 @@ public class Player extends Entity{
 		direction = "up";
 		invincibleTime = 2;
 
-		hasKey = 0;
+		hasKey = 10;
 		point = 0;
 
 		alive = true;
@@ -121,8 +121,8 @@ public class Player extends Entity{
 		}
 
 		// PLACE gamePanel.bombs
-		// if player continue press place bomb key then bomb will be placed continuously 
-		// so in this case only if player release place bomb key then bomb is setup and placed
+		// problem: if player continue press place bomb key then bomb will be placed continuously 
+		// solution: so in this case only if player release place bomb key then bomb is setup and placed
 		if(gamePanel.keyHandler.placeBombPressed == true) {
 			if(check == 0) {
 				isPlaceBomb = true;
@@ -240,6 +240,9 @@ public class Player extends Entity{
 				life--;
 				if(life == 0) {
 					dying = true;
+					gamePanel.music.stop();
+					gamePanel.music.setFile("Loose");
+					gamePanel.music.play();
 					return;
 				}
 				invincible = true;

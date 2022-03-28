@@ -217,6 +217,8 @@ public class KeyHandler implements KeyListener{
 		
 			// finish
 			else if(gamePanel.gameState == gamePanel.finishState) {
+				gamePanel.music.stop();
+				gamePanel.music.setFile("Background");
 				gamePanel.music.play();
 				gamePanel.music.loop();
 				if(gamePanel.ui.commandNum == 0) {
@@ -227,8 +229,7 @@ public class KeyHandler implements KeyListener{
 					gamePanel.continuable = false;
 					gamePanel.ui.commandNum = 0;
 				}
-			}
-		
+			}	
 		}
 
 

@@ -2,7 +2,7 @@ package main;
 
 import java.awt.event.*;
 
-
+// for sound volume control
 public class MouseHandler {
 
 	public GamePanel gamePanel;
