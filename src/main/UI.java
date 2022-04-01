@@ -145,10 +145,32 @@ public class UI {
 		g2D.setColor(new Color(0,0,0,170));
 		g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
+		// ESCAPE
+		image = escape;
+		int x = gamePanel.tileSize / 2;
+		int y = gamePanel.tileSize / 2;
+		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 20));
+		g2D.drawImage(image, x, y, null);
+		g2D.setColor(Color.white);
+		g2D.drawString("go back (esc)", x + 30, y + 18);
+
+		// enter
+		x = gamePanel.tileSize * 5 + 15;
+		y = gamePanel.tileSize * 10 + gamePanel.tileSize / 2;
+		try {
+			image = ImageIO.read(new File("../res/title/enter0.png"));
+			g2D.drawImage(image, x, y, gamePanel.tileSize * 2, gamePanel.tileSize / 2, null);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 30));
+		g2D.drawString("  >>>  play game", x + gamePanel.tileSize * 2, y + 20);
+
+		// heading
 		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 80));
 		String text = "choose your character";
-		int x = getXForCenteredText(g2D, text);
-		int y = gamePanel.tileSize * 2 + gamePanel.tileSize / 2;
+		x = getXForCenteredText(g2D, text);
+		y = gamePanel.tileSize * 2 + gamePanel.tileSize / 2;
 
 		// shadow
 		g2D.setColor(Color.gray);
@@ -185,6 +207,15 @@ public class UI {
 				int arrowX = x + gamePanel.tileSize;
 				int arrowY = y + gamePanel.tileSize * 3 + gamePanel.tileSize / 2;
 				g2D.drawImage(arrowUp, arrowX, arrowY, gamePanel.tileSize, gamePanel.tileSize, null);
+				text = "Romeo";
+				g2D.setColor(Color.yellow);
+				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 50));
+				g2D.drawString(text, x + 15, y - 20);
+			} else {
+				text = "Romeo";
+				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 40));
+				g2D.setColor(Color.white);
+				g2D.drawString(text, x + 25, y - 20);
 			}
 			g2D.drawImage(image, x, y, size, size ,null);
 
@@ -207,7 +238,16 @@ public class UI {
 				int arrowX = x + gamePanel.tileSize;
 				int arrowY = y + gamePanel.tileSize * 3 + gamePanel.tileSize / 2;
 				g2D.drawImage(arrowUp, arrowX, arrowY, gamePanel.tileSize, gamePanel.tileSize, null);
-			} 
+				text = "Juliet";
+				g2D.setColor(Color.yellow);
+				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 50));
+				g2D.drawString(text, x + 24, y - 20);
+			} else {
+				text = "Juliet";
+				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 40));
+				g2D.setColor(Color.white);
+				g2D.drawString(text, x + 30, y - 20);
+			}
 			g2D.drawImage(image, x, y, size, size ,null);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -440,18 +480,35 @@ public class UI {
 		g2D.setColor(new Color(0,0,0,170));
 		g2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
-		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 115));
-		String text = "Covid Destroyer";
+		// GAME'S NAME
+		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 50));
+		String text = "BOMBERMAN 2";
 		int x = getXForCenteredText(g2D, text);
-		int y = gamePanel.tileSize * 2 + gamePanel.tileSize / 2;
+		int y = gamePanel.tileSize + 10;
 
 		// shadow
-		g2D.setColor(Color.gray);
+		g2D.setColor(new Color(0xBF6B04));
 		for(int i = 1; i <= 5; i++) {
 			g2D.drawString(text, x + i, y + i);
 		}
 		// title
-		g2D.setColor(Color.white);
+		g2D.setColor(new Color(0xF2DC6B));
+		g2D.drawString(text, x, y);
+		
+		
+		// SERIES'S NAME
+		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 115));
+		text = "Covid Destroyer";
+		x = getXForCenteredText(g2D, text);
+		y = gamePanel.tileSize * 3;
+
+		// shadow
+		g2D.setColor(new Color(0x8b5e34));
+		for(int i = 1; i <= 5; i++) {
+			g2D.drawString(text, x + i, y + i);
+		}
+		// title
+		g2D.setColor(new Color(0xf3d5b5));
 		g2D.drawString(text, x, y);
 
 

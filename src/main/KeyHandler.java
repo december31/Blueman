@@ -19,18 +19,30 @@ public class KeyHandler implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
-		// game how to play state
-		// if player press esc key then go back to previous screen
+
 		if(gamePanel.gameState == gamePanel.tutorialState) {
 			gamePanel.playSoundEffect("Click");
-			if(code == KeyEvent.VK_ESCAPE) {
-				gamePanel.gameState = gamePanel.previousState[gamePanel.tutorialState];
-			}
 		}
-		if(gamePanel.gameState == gamePanel.settingState) {
-			if(code == KeyEvent.VK_ESCAPE) {
+		
+		// game how to play state
+		// if player press esc key then go back to previous screen
+		if(code == KeyEvent.VK_ESCAPE) {
+			// tutorial state
+			if(gamePanel.gameState == gamePanel.tutorialState) {
 				gamePanel.playSoundEffect("Click");
-				gamePanel.gameState = gamePanel.previousState[gamePanel.settingState];
+					gamePanel.gameState = gamePanel.previousState[gamePanel.tutorialState];
+			}
+
+			// setting state
+			if(gamePanel.gameState == gamePanel.settingState) {
+					gamePanel.playSoundEffect("Click");
+					gamePanel.gameState = gamePanel.previousState[gamePanel.settingState];
+			}
+
+			// choose character state
+			if(gamePanel.gameState == gamePanel.chooseCharacterState) {
+					gamePanel.playSoundEffect("Click");
+					gamePanel.gameState = gamePanel.titleState;
 			}
 		}
 

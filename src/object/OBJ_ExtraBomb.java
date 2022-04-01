@@ -10,5 +10,4 @@ public class OBJ_ExtraBomb extends Entity{
 		down1 = setup("../res/object/extraBomb.png");
 		name = "ExtraBomb";
 	}
-	
 }

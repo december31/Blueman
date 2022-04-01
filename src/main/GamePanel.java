@@ -110,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void newGame() {
-		player.setDefaultValues();;
+		player.setDefaultValues();
 		tileManager.loadMap("../res/map/worldV4.txt");
 		setupGame();
 		gameState = playState;
@@ -192,7 +192,8 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 			}
 
-		} else if (gameState == pauseState) {
+		}
+		else if (gameState == pauseState) {
 			// do nothing
 		}
 		else if (gameState == finishState) {
@@ -288,5 +289,4 @@ public class GamePanel extends JPanel implements Runnable{
 		else if(rand < 35) return new OBJ_Boots(this);
 		return null;
 	}
-
 }

@@ -10,7 +10,7 @@ public class MON_Delta extends Entity{
 	public MON_Delta(GamePanel gamePanel) {
 		super(gamePanel);
 		name = "Delta";
-		speed = 2;
+		speed = 1;
 		maxLife = 1;
 		life = maxLife;
 

@@ -9,7 +9,7 @@ public class BOSS_Omicron extends Entity{
 
 	public BOSS_Omicron(GamePanel gamePanel) {
 		super(gamePanel);
-		speed = 1;
+		speed = 2;
 		maxLife = 6;
 		life = maxLife;
 		name = "Super Omicron";

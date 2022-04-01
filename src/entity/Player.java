@@ -60,7 +60,7 @@ public class Player extends Entity{
 		direction = "up";
 		invincibleTime = 2;
 
-		hasKey = 10;
+		hasKey = 0;
 		point = 0;
 
 		alive = true;
@@ -104,7 +104,6 @@ public class Player extends Entity{
 			hasBomb--;
 			bombIndex++;
 		}
-
 	}
 	
 	@Override
@@ -132,14 +131,13 @@ public class Player extends Entity{
 		if(gamePanel.keyHandler.placeBombPressed == false) {check = 0;}
 		if(isPlaceBomb == true && hasBomb > 0) {setupBomb();} 
 		isPlaceBomb = false;
-		
 
 		if(gamePanel.keyHandler.upPressed == true) {direction = "up";}
 		else if(gamePanel.keyHandler.downPressed == true) {direction = "down";}
 		else if(gamePanel.keyHandler.leftPressed == true) {direction = "left";}
 		else if(gamePanel.keyHandler.rightPressed == true) {direction = "right";}
 		else return;
-		
+
 		// CHECK TILES COLLISION
 		collisionOn = false;
 		gamePanel.collisionChecker.checkTile(this);
@@ -212,13 +210,14 @@ public class Player extends Entity{
 				case "LevelUpBomb":
 					OBJ_Bomb.power++;
 					gamePanel.objects[i] = null;
-					gamePanel.playSoundEffect("BombLevelUp");
 					point += 30;
+					gamePanel.playSoundEffect("BombLevelUp");
 					break;
-				case "HealingPotion":
+					case "HealingPotion":
 					if(life < maxLife) life++;
 					gamePanel.objects[i] = null;
 					point += 30;
+					gamePanel.playSoundEffect("BombLevelUp");
 					break;
 				case "Chest":
 					gamePanel.music.stop();

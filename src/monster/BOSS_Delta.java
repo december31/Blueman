@@ -9,7 +9,7 @@ public class BOSS_Delta extends Entity{
 
 	public BOSS_Delta(GamePanel gamePanel) {
 		super(gamePanel);
-		speed = 2;
+		speed = 1;
 		maxLife = 3;
 		life = maxLife;
 		name = "Super Delta";
