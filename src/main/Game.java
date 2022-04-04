@@ -8,7 +8,7 @@ public class Game extends JFrame{
 
 		ImageIcon icon = new ImageIcon("../res/monster/delta0.png");
 		this.setIconImage(icon.getImage());
-		this.setTitle("Covid Destroyer");
+		this.setTitle("Bomberman 2: Covid Destroyer");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		GamePanel gamePanel = new GamePanel();

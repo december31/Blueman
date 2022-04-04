@@ -46,7 +46,7 @@ public class AssetSetter {
 		for (int i = 0; i < filePath.length; i++) {
 			try {
 				scanner = new Scanner(new File(filePath[i]));
-				System.out.println(filePath[i]);
+				// System.out.println(filePath[i]);
 				for(int row = 0; row < 13; row++) {
 					for(int col = 0; col < 15; col++) {
 						objectNum = scanner.nextInt();
@@ -235,11 +235,6 @@ public class AssetSetter {
 			gamePanel.monsters[2] = new BOSS_Omicron(gamePanel);
 			gamePanel.monsters[2].worldX = gamePanel.tileSize * 18;
 			gamePanel.monsters[2].worldY = gamePanel.tileSize * (58 - 45);
-
-			// gamePanel.monsters[0] = new MON_Omicron(gamePanel);
-			// gamePanel.monsters[0].worldX = gamePanel.tileSize * 12;
-			// gamePanel.monsters[0].worldY = gamePanel.tileSize * (56 - 45);
-			
 		}
 	}
 }

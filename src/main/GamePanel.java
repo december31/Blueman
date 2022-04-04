@@ -174,10 +174,12 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			// win if all monster has been killed (demo)
 			if(monsterCounter == 0) {
+				if(level == 5) {
+					music.stop();
+				}
 				if(level < 5) {
 					level++;
 					assetSetter.setMonster();
-					music.stop();
 					playSoundEffect("Winning2");
 					objects[assetSetter.objectIndex] = new OBJ_Key(this);
 					objects[assetSetter.objectIndex].worldX = monsterWorldX;
@@ -191,7 +193,6 @@ public class GamePanel extends JPanel implements Runnable{
 					bombs[i].update();
 				}
 			}
-
 		}
 		else if (gameState == pauseState) {
 			// do nothing
@@ -282,7 +283,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public Entity randomItem() {
-		int rand = random.nextInt(0,100);
+		int rand = random.nextInt(100);
 		if(rand < 5) return new OBJ_HealingPotion(this);
 		else if(rand < 20) return new OBJ_ExtraBomb(this);
 		else if(rand < 30) return new OBJ_LevelUpBomb(this);

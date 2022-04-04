@@ -372,8 +372,20 @@ public class UI {
 		g2D.drawString(text, x + 1, y + 1);
 		g2D.setColor(Color.white);
 		g2D.drawString(text, x, y);
-		
-		
+
+		if(gamePanel.player.alive == false) {
+			text = "Don't be sad, you tried";
+			g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 30));
+			x = getXForCenteredText(g2D, text);
+			y = gamePanel.tileSize * 5;
+			g2D.setColor(Color.gray);
+			g2D.drawString(text, x + 3, y + 3);
+			g2D.drawString(text, x + 2, y + 2);
+			g2D.drawString(text, x + 1, y + 1);
+			g2D.setColor(Color.white);
+			g2D.drawString(text, x, y);;
+		}
+
 		g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 40));
 		text = "Play again";
 		x = getXForCenteredText(g2D, text);
