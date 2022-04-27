@@ -25,6 +25,8 @@ public class UI {
 	public int chooseEffectCounter = 0;
 	public int check = 0;
 
+	public int lowHealthPointEffectCounter = 0;
+
 	// volume control
 	public final int maxVolumeWidth = 400;
 	public final int oneScale = maxVolumeWidth / 100;
@@ -32,6 +34,8 @@ public class UI {
 	public int effectVolume = 50;
 	public int musicVolumeWidth = musicVolume * oneScale;
 	public int effectVolumeWidth = effectVolume * oneScale;
+
+	BufferedImage takeDamageEffect;
 
 	// tutorial image
 	BufferedImage background;
@@ -72,6 +76,8 @@ public class UI {
 		pressedD = loadImage("../res/title/pressedD.png", 3);
 		pressedB = loadImage("../res/title/pressedB.png", 3);
 		pressedSpace = loadImage("../res/title/pressedSpace.png", 3);
+
+		takeDamageEffect = loadImage("../res/tiles/My version/takeDamage.png", gamePanel.screenWidth, gamePanel.screenHeight);
 
 		OBJ_Bomb bomb = new OBJ_Bomb(gamePanel);
 		bombImage = bomb.image;
@@ -131,7 +137,7 @@ public class UI {
 			drawSettingScreen(g2D);
 		}
 		else if(gamePanel.gameState == gamePanel.chooseCharacterState){
-			drawChooseCharacter(g2D);
+			drawChooseCharacterScreen(g2D);
 		}
 		else {
 			drawPlayScreen(g2D);
@@ -139,7 +145,7 @@ public class UI {
 	}
 
 
-	private void drawChooseCharacter(Graphics2D g2D) {
+	private void drawChooseCharacterScreen(Graphics2D g2D) {
 		BufferedImage image = background;
 		g2D.drawImage(image, 0, 0, gamePanel.screenWidth, gamePanel.screenHeight, null);
 		g2D.setColor(new Color(0,0,0,170));
@@ -207,12 +213,12 @@ public class UI {
 				int arrowX = x + gamePanel.tileSize;
 				int arrowY = y + gamePanel.tileSize * 3 + gamePanel.tileSize / 2;
 				g2D.drawImage(arrowUp, arrowX, arrowY, gamePanel.tileSize, gamePanel.tileSize, null);
-				text = "Romeo";
+				text = "XHuan";
 				g2D.setColor(Color.yellow);
 				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 50));
 				g2D.drawString(text, x + 15, y - 20);
 			} else {
-				text = "Romeo";
+				text = "XHuan";
 				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 40));
 				g2D.setColor(Color.white);
 				g2D.drawString(text, x + 25, y - 20);
@@ -238,12 +244,12 @@ public class UI {
 				int arrowX = x + gamePanel.tileSize;
 				int arrowY = y + gamePanel.tileSize * 3 + gamePanel.tileSize / 2;
 				g2D.drawImage(arrowUp, arrowX, arrowY, gamePanel.tileSize, gamePanel.tileSize, null);
-				text = "Juliet";
+				text = "KOanh";
 				g2D.setColor(Color.yellow);
 				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 50));
 				g2D.drawString(text, x + 24, y - 20);
 			} else {
-				text = "Juliet";
+				text = "KOanh";
 				g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 40));
 				g2D.setColor(Color.white);
 				g2D.drawString(text, x + 30, y - 20);
@@ -276,6 +282,40 @@ public class UI {
 			x += gamePanel.tileSize;
 		}
 
+		// draw faded red at border of screen if player is hit
+		if(gamePanel.player.invincible == true) {
+			float alpha = 1;
+			if(gamePanel.player.invincibleCounter <= 20) {
+				alpha = (float)gamePanel.player.invincibleCounter * 0.05f;
+			}
+			else if(gamePanel.player.invincibleCounter >= 90) {
+				alpha = (gamePanel.player.invincibleTime * 60 - (float)gamePanel.player.invincibleCounter) * 0.033333f;
+			}
+			g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+			g2D.drawImage(takeDamageEffect, 0, 0, gamePanel.screenWidth, gamePanel.screenHeight, null);;
+			g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+		}
+		
+		// when player has just one heart screen border will be red blur blink
+		if(gamePanel.player.life == 1) {
+			lowHealthPointEffectCounter++;
+			float alpha = 0.2f;
+			int counter = lowHealthPointEffectCounter % 300;
+			if(20 <= counter && counter <= 100) {
+				alpha = counter * 0.01f;
+			}
+			else if (100 < counter && counter < 200) {
+				alpha = 1;
+			}
+			else if(200 <= counter && counter <= 280) {
+				alpha = (300 - counter) * 0.01f;
+			}
+			else if(counter > 280) lowHealthPointEffectCounter = 0;
+			g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+			g2D.drawImage(takeDamageEffect, 0, 0, null);
+			g2D.drawImage(takeDamageEffect, 0, 0, null);
+			g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+		}
 
 		// draw bomb
 		int bombCount = gamePanel.player.hasBomb;
@@ -316,14 +356,6 @@ public class UI {
 			for(int j = 6; j > 0; j--) {
 				g2D.fillRoundRect(x - j, y - j, messageBoxWidth + j * 2, messageBoxHeight + j * 2, 30, 30);
 			}
-			// g2D.setColor(new Color(255,255,255,70));
-			// g2D.fillRoundRect(x - 4, y - 4, messageBoxWidth + 8, messageBoxHeight + 8, 30, 30);
-			// g2D.setColor(new Color(255,255,255,90));
-			// g2D.fillRoundRect(x - 3, y - 3, messageBoxWidth + 6, messageBoxHeight + 6, 30, 30);
-			// g2D.setColor(new Color(255,255,255,110));
-			// g2D.fillRoundRect(x - 2, y - 2, messageBoxWidth + 4, messageBoxHeight + 4, 30, 30);
-			// g2D.setColor(new Color(255,255,255,130));
-			// g2D.fillRoundRect(x - 1, y - 1, messageBoxWidth + 2, messageBoxHeight + 2, 30, 30);
 
 			g2D.setColor(Color.black);
 			int[] triangleX = {	x + messageBoxWidth / 2 + 50,
@@ -360,7 +392,7 @@ public class UI {
 		if(gamePanel.player.alive == true) {
 			text = "You win";
 		} else {
-			text = "You loose";
+			text = "You lose";
 		}
 		x = getXForCenteredText(g2D, text);
 		y = gamePanel.tileSize * 4;

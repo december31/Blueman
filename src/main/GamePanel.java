@@ -198,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable{
 			// do nothing
 		}
 		else if (gameState == finishState) {
-			if(keyHandler.upPressed == false) {
+			if(	keyHandler.upPressed == false && keyHandler.downPressed == false) {
 				checkKeyHandlerFinishState = true;
 			}
 		}
