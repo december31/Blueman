@@ -224,17 +224,44 @@ public class AssetSetter {
 			gamePanel.monsters[4].worldX = gamePanel.tileSize * 10;
 			gamePanel.monsters[4].worldY = gamePanel.tileSize * (58 - 30);
 		} else if(gamePanel.level == 4) {
+			// Alpha
 			gamePanel.monsters[0] = new BOSS_Alpha(gamePanel);
-			gamePanel.monsters[0].worldX = gamePanel.tileSize * 10;
-			gamePanel.monsters[0].worldY = gamePanel.tileSize * (58 - 45);
+			gamePanel.monsters[0].worldX = gamePanel.tileSize * 8;
+			gamePanel.monsters[0].worldY = gamePanel.tileSize * 11;
 			
-			gamePanel.monsters[1] = new BOSS_Delta(gamePanel);
-			gamePanel.monsters[1].worldX = gamePanel.tileSize * 14;
-			gamePanel.monsters[1].worldY = gamePanel.tileSize * (58 - 45);
+			gamePanel.monsters[1] = new MON_Alpha(gamePanel);
+			gamePanel.monsters[1].worldX = gamePanel.tileSize * 10;
+			gamePanel.monsters[1].worldY = gamePanel.tileSize * 11;
+			
+			gamePanel.monsters[2] = new MON_Alpha(gamePanel);
+			gamePanel.monsters[2].worldX = gamePanel.tileSize * 11;
+			gamePanel.monsters[2].worldY = gamePanel.tileSize * 11;
 
-			gamePanel.monsters[2] = new BOSS_Omicron(gamePanel);
-			gamePanel.monsters[2].worldX = gamePanel.tileSize * 18;
-			gamePanel.monsters[2].worldY = gamePanel.tileSize * (58 - 45);
+			// Delta
+			gamePanel.monsters[3] = new BOSS_Delta(gamePanel);
+			gamePanel.monsters[3].worldX = gamePanel.tileSize * 8;
+			gamePanel.monsters[3].worldY = gamePanel.tileSize * 13;
+			
+			gamePanel.monsters[4] = new MON_Delta(gamePanel);
+			gamePanel.monsters[4].worldX = gamePanel.tileSize * 10;
+			gamePanel.monsters[4].worldY = gamePanel.tileSize * 13;
+			
+			gamePanel.monsters[5] = new MON_Delta(gamePanel);
+			gamePanel.monsters[5].worldX = gamePanel.tileSize * 11;
+			gamePanel.monsters[5].worldY = gamePanel.tileSize * 13;
+
+			// Omicron
+			gamePanel.monsters[6] = new BOSS_Omicron(gamePanel);
+			gamePanel.monsters[6].worldX = gamePanel.tileSize * 12;
+			gamePanel.monsters[6].worldY = gamePanel.tileSize * 11;
+			
+			gamePanel.monsters[7] = new MON_Omicron(gamePanel);
+			gamePanel.monsters[7].worldX = gamePanel.tileSize * 14;
+			gamePanel.monsters[7].worldY = gamePanel.tileSize * 11;
+			
+			gamePanel.monsters[8] = new MON_Omicron(gamePanel);
+			gamePanel.monsters[8].worldX = gamePanel.tileSize * 15;
+			gamePanel.monsters[8].worldY = gamePanel.tileSize * 11;
 		}
 	}
 }

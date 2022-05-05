@@ -1,7 +1,6 @@
 package main;
 
 import entity.Entity;
-import entity.Player;
 import object.OBJ_Door;
 
 public class CollisionChecker {
@@ -82,10 +81,6 @@ public class CollisionChecker {
 					default:break;
 				}
 				if(targets[i].solidArea.intersects(entity.solidArea)) {
-					if(targets[i].type == 2 && entity instanceof Player) {
-						targets[i].actionLockCounter = 120;
-					}
-
 					if(targets[i].collision == true ) {
 						if(targets[i] != entity) {
 							entity.collisionOn = true;
@@ -93,6 +88,8 @@ public class CollisionChecker {
 					}
 					index = i;
 				}
+
+				// restore solid area
 				entity.solidArea.x = entity.solidAreaDefaultX;
 				entity.solidArea.y = entity.solidAreaDefaultY;
 
